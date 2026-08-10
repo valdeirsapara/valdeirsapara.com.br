@@ -1,5 +1,6 @@
 import { marked } from "marked";
 import matter from "gray-matter";
+import { rm } from "node:fs/promises";
 import path from "node:path";
 
 
@@ -156,6 +157,13 @@ async function parseMarkdownFile(filename: string): Promise<Post> {
   };
 }
 
+
+await rm(path.resolve("dist"), {
+  recursive: true,
+  force: true,
+});
+
+console.log("✓ dist limpa");
 
 const glob = new Bun.Glob("**/*.md");
 const posts: Post[] = [];
