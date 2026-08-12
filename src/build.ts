@@ -326,6 +326,27 @@ function createFeed(posts: Post[]): string {
 </rss>`;
 }
 
+function createSitemap(posts: Post[]): string {
+  const latest = posts[0]?.dateString ?? new Date().toISOString().slice(0, 10);
+  const entries = [
+    { loc: `${SITE_URL}/`, lastmod: latest },
+    { loc: `${SITE_URL}/sobre/`, lastmod: latest },
+    ...posts.map((post) => ({ loc: `${SITE_URL}${post.url}`, lastmod: post.dateString })),
+  ];
+
+  const urls = entries
+    .map((entry) => `
+  <url>
+    <loc>${escapeXml(entry.loc)}</loc>
+    <lastmod>${entry.lastmod}</lastmod>
+  </url>`)
+    .join("");
+
+  return `<?xml version="1.0" encoding="UTF-8" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls}
+</urlset>`;
+}
+
 const glob = new Bun.Glob("**/*.md");
 const posts: Post[] = [];
 
@@ -396,7 +417,13 @@ await Promise.all([
   Bun.write(path.join("dist", "styles.css"), Bun.file(path.join("static", "styles.css"))),
   Bun.write(path.join("dist", "favicon.svg"), Bun.file(path.join("static", "favicon.svg"))),
   Bun.write(path.join("dist", "feed.xml"), createFeed(posts)),
+  Bun.write(path.join("dist", "sitemap.xml"), createSitemap(posts)),
+  Bun.write(
+    path.join("dist", "robots.txt"),
+    `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`,
+  ),
 ]);
 
 console.log("✓ /sobre/");
+console.log("✓ /sitemap.xml");
 console.log(`\n${posts.length} texto${posts.length === 1 ? "" : "s"} publicado${posts.length === 1 ? "" : "s"}.`);
