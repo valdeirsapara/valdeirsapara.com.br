@@ -1,0 +1,47 @@
+{% extends "base.njk" %}
+
+{% block content %}
+<main id="conteudo" class="shell">
+  <p class="prompt">
+    <span class="prompt__user">valdeir@web</span><span class="prompt__sep">:</span><span class="prompt__path">~</span><span class="prompt__sep">$</span> ls -la /posts
+  </p>
+
+  {% for group in groups %}
+  <section class="month-group" aria-labelledby="mes-{{ group.id }}">
+    <h2 class="month-group__title" id="mes-{{ group.id }}">{{ group.month }}</h2>
+
+    <div class="post-list">
+      {% for post in group.posts %}
+      <article class="post-row">
+        <time class="post-row__date" datetime="{{ post.dateString }}">{{ post.day }}</time>
+        <div>
+          <h3 class="post-row__title">
+            <a href="{{ post.url }}">{{ post.title }}</a>
+          </h3>
+          {% if post.description %}
+          <p class="post-row__description">{{ post.description }}</p>
+          {% endif %}
+          {% if post.tags.length %}
+          <ul class="tag-list">
+            {% for tag in post.tags %}
+            <li class="tag">{{ tag }}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+  {% else %}
+  <p class="empty-state">O primeiro texto está sendo escrito.</p>
+  {% endfor %}
+
+  {% if groups.length %}
+  <p class="prompt prompt--footer">
+    <span class="prompt__path">❯</span> ls -la /{{ oldestYear }} <span class="prompt__note">— fim do histórico</span>
+    <span class="cursor" aria-hidden="true"></span>
+  </p>
+  {% endif %}
+</main>
+{% endblock %}
