@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{{ post.description or pageDescription or siteDescription }}">
+  <meta name="theme-color" content="#15120e" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f5ead8" media="(prefers-color-scheme: light)">
+  <meta property="og:type" content="{% if post %}article{% else %}website{% endif %}">
+  <meta property="og:title" content="{{ pageTitle }}">
+  <meta property="og:description" content="{{ post.description or pageDescription or siteDescription }}">
+  <meta property="og:url" content="{{ canonicalUrl }}">
+  <link rel="canonical" href="{{ canonicalUrl }}">
+  <link rel="alternate" type="application/rss+xml" title="RSS — {{ siteName }}" href="/feed.xml">
+  <link rel="icon" href="/favicon.svg?v=3" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Figtree:wght@400;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="/styles.css?v=3">
+  <title>{{ pageTitle }}</title>
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("vs-blog-theme");
+        document.documentElement.dataset.theme =
+          saved === "light" || saved === "dark" ? saved : "dark";
+      } catch (e) {
+        document.documentElement.dataset.theme = "dark";
+      }
+    })();
+  </script>
+</head>
+<body class="{{ bodyClass }}">
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="brand" href="/" aria-label="Página inicial de {{ siteName }}">
+        <span class="brand__caret" aria-hidden="true">❯</span>
+        <span class="brand__host">valdeirsapara.com.br</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Navegação principal">
+        <a href="/"{% if navActive == "posts" %} aria-current="page"{% endif %}>/posts</a>
+        <a href="/sobre/"{% if navActive == "sobre" %} aria-current="page"{% endif %}>/sobre</a>
+        <a href="https://github.com/valdeirsapara" rel="me noopener">/github</a>
+        <button
+          class="theme-toggle"
+          type="button"
+          id="theme-toggle"
+          title="Alternar tema"
+          aria-label="Alternar tema"
+        >☾</button>
+      </nav>
+    </div>
+  </header>
+
+  {% block content %}{% endblock %}
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <p>© {{ buildYear }} {{ siteName }}</p>
+      <p>gerado com Bun · <a href="/feed.xml">RSS</a></p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var button = document.getElementById("theme-toggle");
+      if (!button) return;
+
+      var glyph = function (theme) {
+        return theme === "light" ? "☀" : "☾";
+      };
+
+      var apply = function (theme) {
+        document.documentElement.dataset.theme = theme;
+        button.textContent = glyph(theme);
+        try {
+          localStorage.setItem("vs-blog-theme", theme);
+        } catch (e) {}
+      };
+
+      button.textContent = glyph(document.documentElement.dataset.theme);
+      button.addEventListener("click", function () {
+        apply(document.documentElement.dataset.theme === "light" ? "dark" : "light");
+      });
+    })();
+  </script>
+</body>
+</html>

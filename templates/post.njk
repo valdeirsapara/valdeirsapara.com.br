@@ -1,0 +1,47 @@
+{% extends "base.njk" %}
+
+{% block content %}
+<main id="conteudo" class="shell shell--post">
+  <a class="back-link" href="/"><span aria-hidden="true">❮</span> cd ..</a>
+
+  <article class="post">
+    <header>
+      <div class="post-meta">
+        <time datetime="{{ post.dateString }}">{{ post.dateLong }}</time>
+        <span class="post-meta__sep" aria-hidden="true">·</span>
+        <span>{{ post.readingMinutes }} min de leitura</span>
+        {% if post.series %}
+        <span class="post-meta__sep" aria-hidden="true">·</span>
+        <span class="post-meta__series">{{ post.series }}</span>
+        {% endif %}
+      </div>
+
+      <h1 class="post-title">{{ post.title }}</h1>
+      {% if post.description %}
+      <p class="post-lead">{{ post.description }}</p>
+      {% endif %}
+    </header>
+
+    <div class="post-content">
+      {{ post.renderedContent | safe }}
+    </div>
+  </article>
+
+  {% if newerPost or olderPost %}
+  <nav class="post-navigation" aria-label="Outros textos">
+    {% if olderPost %}
+    <a href="{{ olderPost.url }}">
+      <div class="post-navigation__label"><span aria-hidden="true">❮</span> ANTERIOR</div>
+      <div class="post-navigation__title">{{ olderPost.title }}</div>
+    </a>
+    {% endif %}
+    {% if newerPost %}
+    <a class="post-navigation__next" href="{{ newerPost.url }}">
+      <div class="post-navigation__label">PRÓXIMO <span aria-hidden="true">❯</span></div>
+      <div class="post-navigation__title">{{ newerPost.title }}</div>
+    </a>
+    {% endif %}
+  </nav>
+  {% endif %}
+</main>
+{% endblock %}

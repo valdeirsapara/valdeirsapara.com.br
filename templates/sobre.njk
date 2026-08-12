@@ -1,0 +1,48 @@
+{% extends "base.njk" %}
+
+{% block content %}
+<main id="conteudo" class="shell shell--page">
+  <p class="prompt prompt--tight">
+    <span class="prompt__user">valdeir@web</span><span class="prompt__sep">:</span><span class="prompt__path">~</span><span class="prompt__sep">$</span> cat sobre.md
+  </p>
+
+  <h1 class="page-title">Sobre</h1>
+
+  <div class="about-grid">
+    <div class="about-prose">
+      <p>
+        Eu escrevo aqui porque descobri alguma coisa, porque quebrei alguma coisa,
+        ou porque quero entender melhor o que acabei de ler. O blog é menos vitrine
+        e mais caderno.
+      </p>
+      <p>
+        Passei semanas decidindo se criava ou não este espaço. A conclusão foi que
+        o custo de publicar cedo é bem menor que o de nunca publicar.
+      </p>
+      <p>
+        O site é estático, gerado com Bun a partir de arquivos Markdown, e o código
+        fica aberto no <a href="https://github.com/valdeirsapara/valdeirsapara.com.br" rel="noopener">GitHub</a>.
+      </p>
+    </div>
+
+    <div class="about-photo">sua foto</div>
+  </div>
+
+  <div class="terminal terminal--about">
+    <div class="terminal__line">
+      <div>
+        <span class="prompt__user">valdeir@web</span><span class="prompt__sep">:</span><span class="prompt__path">~</span><span class="prompt__sep">$</span> stack --list
+      </div>
+      <div class="terminal__out">TypeScript · Bun · Node · Python · PostgreSQL · Linux</div>
+    </div>
+    <div class="terminal__line">
+      <div>
+        <span class="prompt__user">valdeir@web</span><span class="prompt__sep">:</span><span class="prompt__path">~</span><span class="prompt__sep">$</span> contato
+      </div>
+      <div class="terminal__out">
+        github.com/valdeirsapara · contato@valdeirsapara.com.br<span class="cursor" aria-hidden="true"></span>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
