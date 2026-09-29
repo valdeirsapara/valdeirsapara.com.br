@@ -18,10 +18,11 @@ function slugify(text: string): string {
     .replace(/-+/g, "-");
 }
 
+// Data local, não UTC: à noite no Brasil o UTC já está no dia seguinte.
 const now = new Date();
-const year = now.getUTCFullYear().toString();
-const month = String(now.getUTCMonth() + 1).padStart(2, "0");
-const day = String(now.getUTCDate()).padStart(2, "0");
+const year = now.getFullYear().toString();
+const month = String(now.getMonth() + 1).padStart(2, "0");
+const day = String(now.getDate()).padStart(2, "0");
 const date = `${year}-${month}-${day}`;
 
 const slug = slugify(title);
@@ -33,8 +34,9 @@ if (await Bun.file(filePath).exists()) {
   process.exit(1);
 }
 
+// JSON.stringify gera uma string YAML válida mesmo com ":" ou aspas no título.
 const content = `---
-title: ${title}
+title: ${JSON.stringify(title)}
 description:
 date: ${date}
 tags: []
