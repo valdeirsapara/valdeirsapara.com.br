@@ -5,8 +5,11 @@
 
 {# ── Abertura ───────────────────────────────────────────────────────── #}
 <section class="hero" aria-labelledby="hero-title">
+  <div class="gridlines" aria-hidden="true"></div>
+  <div class="glow glow--hero" aria-hidden="true"></div>
   <div class="container hero__grid">
     <div class="hero__copy">
+      <p class="pill"><b>Novo</b> Atendimento automático no WhatsApp em 15 dias</p>
       <h1 class="hero__title split" id="hero-title">
         {{ "Sua empresa perde cliente porque ninguém responde o WhatsApp" | words | safe }}
         <em>{{ "às 22h." | words(10) | safe }}</em>
@@ -45,10 +48,20 @@
       </div>
     </figure>
   </div>
+  <div class="container">
+    <dl class="stats">
+      {% for item in stats %}
+      <div class="stat">
+        <dt>{{ item.label }}</dt>
+        <dd data-count="{{ item.value }}">{{ item.value }}<span>{{ item.suffix }}</span></dd>
+      </div>
+      {% endfor %}
+    </dl>
+  </div>
 </section>
 
 {# ── Não precisa ser assim ──────────────────────────────────────────── #}
-<section class="section section--dark" aria-labelledby="diferenciais">
+<section class="section" aria-labelledby="diferenciais">
   <div class="container">
     <p class="label" id="diferenciais">Por que a Sapará Dev</p>
     <p class="statement" style="margin-top:28px">
@@ -110,6 +123,7 @@
 
 {# ── Como funciona ──────────────────────────────────────────────────── #}
 <section class="section section--dark" aria-labelledby="processo-title">
+  <div class="gridlines" aria-hidden="true"></div>
   <div class="container">
     <div class="section__head section__head--split">
       <div style="display:grid;gap:20px">
@@ -144,7 +158,7 @@
 
     <div class="cases">
       {% for item in cases %}
-      <article class="case reveal" style="--i:{{ loop.index0 % 2 }}">
+      <article class="case reveal" data-spotlight style="--i:{{ loop.index0 % 2 }}">
         <div class="case__top">
           <span class="label">{{ item.sector | fill | safe }}</span>
           <span class="label" aria-hidden="true">{{ loop.index | pad }}</span>
@@ -163,6 +177,7 @@
 
 {# ── Para quem ──────────────────────────────────────────────────────── #}
 <section class="section section--dark" aria-labelledby="segmentos-title">
+  <div class="gridlines" aria-hidden="true"></div>
   <div class="container">
     <div class="section__head">
       <p class="label">Para quem eu trabalho</p>
@@ -210,6 +225,8 @@
 
 {# ── CTA final ──────────────────────────────────────────────────────── #}
 <section class="section section--dark cta" aria-labelledby="cta-title">
+  <div class="gridlines" aria-hidden="true"></div>
+  <div class="glow glow--cta" aria-hidden="true"></div>
   <div class="container">
     <h2 class="cta__title" id="cta-title">Bora <em>conversar?</em></h2>
     <div class="cta__row" data-cta>

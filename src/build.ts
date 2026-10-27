@@ -3,7 +3,7 @@ import matter from "gray-matter";
 import nunjucks from "nunjucks";
 import { rm } from "node:fs/promises";
 import path from "node:path";
-import { cases, contact, differentials, packages, segments, steps, whatsappLink } from "./site-data";
+import { cases, contact, differentials, packages, segments, stats, steps, whatsappLink } from "./site-data";
 
 const SITE_NAME = "Valdeir Sapará";
 const SITE_URL = "https://www.valdeirsapara.com.br";
@@ -455,6 +455,7 @@ const homeHtml = templates.render("site/home.njk", {
   steps,
   cases,
   segments,
+  stats,
   recentPosts: posts.slice(0, 2),
 });
 

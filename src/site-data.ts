@@ -143,3 +143,11 @@ export const segments = [
   { name: "Veterinárias", text: "Agendamento, retorno e vacina no prazo.", icon: "vet" },
   { name: "Contabilidades", text: "Coleta de documentos e cobrança de pendências.", icon: "accounting" },
 ];
+
+/** Faixa de números do topo. Só números reais — nada inventado. */
+export const stats = [
+  { value: "7", suffix: "+", label: "anos construindo sistemas que não podem parar" },
+  { value: "250", suffix: "+", label: "câmeras monitoradas ao mesmo tempo, em produção" },
+  { value: "134", suffix: "×", label: "mais rápida ficou uma tela crítica, sem trocar de sistema" },
+  { value: "15", suffix: " dias", label: "para o atendimento automático começar a funcionar" },
+];

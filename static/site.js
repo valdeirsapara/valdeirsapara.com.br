@@ -149,6 +149,41 @@
     }
   }
 
+  /* Spotlight nos cards: o brilho segue o cursor */
+  if (!reduce) {
+    document.querySelectorAll("[data-spotlight]").forEach(function (card) {
+      card.addEventListener("pointermove", function (event) {
+        var r = card.getBoundingClientRect();
+        card.style.setProperty("--mx", (event.clientX - r.left) + "px");
+        card.style.setProperty("--my", (event.clientY - r.top) + "px");
+      });
+    });
+  }
+
+  /* Números que contam até o valor final quando aparecem */
+  var counters = document.querySelectorAll("[data-count]");
+  if (counters.length && !reduce && hasIO) {
+    var countIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        countIO.unobserve(entry.target);
+        var el = entry.target;
+        var target = parseInt(el.getAttribute("data-count"), 10);
+        var textNode = el.firstChild;
+        var t0 = null;
+        var tick = function (now) {
+          if (t0 === null) t0 = now;
+          var p = Math.min(1, (now - t0) / 1400);
+          var eased = 1 - Math.pow(1 - p, 3);
+          textNode.nodeValue = String(Math.round(target * eased));
+          if (p < 1) window.requestAnimationFrame(tick);
+        };
+        window.requestAnimationFrame(tick);
+      });
+    }, { threshold: 0.6 });
+    counters.forEach(function (el) { countIO.observe(el); });
+  }
+
   /* Botão de WhatsApp fixo: some quando já tem um CTA grande na tela */
   var float = document.querySelector(".wa-float");
   var bigCtas = document.querySelectorAll("[data-cta]");
