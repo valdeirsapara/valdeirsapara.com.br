@@ -1,0 +1,100 @@
+{% from "site/icons.njk" import icon %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>{{ pageTitle }}</title>
+  <meta name="description" content="{{ pageDescription }}">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="canonical" href="{{ canonicalUrl }}">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Sapará Dev">
+  <meta property="og:title" content="{{ ogTitle or pageTitle }}">
+  <meta property="og:description" content="{{ pageDescription }}">
+  <meta property="og:url" content="{{ canonicalUrl }}">
+  <meta name="google-site-verification" content="eToCwvJhbDQS7RI7zJwMDvgoPcgfgHxmyFyKyEnjLHc" />
+  <link rel="icon" href="/favicon.svg?v=3" type="image/svg+xml">
+  <link rel="alternate" type="application/rss+xml" title="Blog da Sapará Dev" href="/feed.xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+  <link rel="stylesheet" href="/site.css?v={{ assetVersion }}">
+  <script>document.documentElement.classList.add("js");</script>
+  <script src="/site.js?v={{ assetVersion }}" defer></script>
+  <script type="application/ld+json">{{ schemaJson | safe }}</script>
+</head>
+<body class="site {{ bodyClass }}">
+  <a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="header">
+    <div class="container header__inner">
+      <a class="logo" href="/" aria-label="Sapará Dev, página inicial">
+        <span class="logo__mark" aria-hidden="true"></span>
+        <span>Sapará</span><span class="logo__dev">Dev</span>
+      </a>
+
+      <nav class="nav" aria-label="Principal">
+        <a href="/servicos/"{% if navActive == "servicos" %} aria-current="page"{% endif %}>Serviços</a>
+        <a href="/cases/"{% if navActive == "cases" %} aria-current="page"{% endif %}>Cases</a>
+        <a href="/sobre/"{% if navActive == "sobre" %} aria-current="page"{% endif %}>Sobre</a>
+        <a href="/blog/"{% if navActive == "blog" %} aria-current="page"{% endif %}>Blog</a>
+      </nav>
+
+      <div class="header__actions">
+        <a class="btn btn--dark header__cta" href="{{ waLink }}" target="_blank" rel="noopener">
+          {{ icon("whatsapp") }}
+          <span class="header__cta-long">Falar no WhatsApp</span><span class="header__cta-short">WhatsApp</span>
+        </a>
+        <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu-mobile" aria-label="Abrir menu"><span></span></button>
+      </div>
+    </div>
+    <nav class="container mobile-nav" id="menu-mobile" aria-label="Menu" hidden>
+      <a href="/servicos/">Serviços <span class="arrow" aria-hidden="true">→</span></a>
+      <a href="/cases/">Cases <span class="arrow" aria-hidden="true">→</span></a>
+      <a href="/sobre/">Sobre <span class="arrow" aria-hidden="true">→</span></a>
+      <a href="/blog/">Blog <span class="arrow" aria-hidden="true">→</span></a>
+      <a href="/contato/">Contato <span class="arrow" aria-hidden="true">→</span></a>
+    </nav>
+  </header>
+
+  <main id="conteudo">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__col">
+          <a class="logo" href="/"><span class="logo__mark" aria-hidden="true"></span><span>Sapará</span><span class="logo__dev">Dev</span></a>
+          <p>Atendo em {{ contact.city }}.</p>
+          <p>CNPJ {{ contact.cnpj | fill | safe }}</p>
+        </div>
+        <div class="footer__col">
+          <p class="label">Contato</p>
+          <a href="{{ waLink }}" target="_blank" rel="noopener">WhatsApp {{ contact.whatsappDisplay }}</a>
+          <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
+          <span>Instagram {{ contact.instagram | fill | safe }}</span>
+        </div>
+        <div class="footer__col">
+          <p class="label">Páginas</p>
+          <a href="/servicos/">Serviços</a>
+          <a href="/cases/">Cases</a>
+          <a href="/sobre/">Sobre</a>
+          <a href="/blog/">Blog</a>
+          <a href="/contato/">Contato</a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>© {{ buildYear }} Sapará Dev · Valdeir Sapará</span>
+        <a href="/feed.xml">RSS do blog</a>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="{{ waLink }}" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    {{ icon("whatsapp") }} WhatsApp
+  </a>
+</body>
+</html>

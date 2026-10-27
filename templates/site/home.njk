@@ -1,0 +1,224 @@
+{% extends "site/layout.njk" %}
+{% from "site/icons.njk" import icon %}
+
+{% block content %}
+
+{# ── Abertura ───────────────────────────────────────────────────────── #}
+<section class="hero" aria-labelledby="hero-title">
+  <div class="container hero__grid">
+    <div class="hero__copy">
+      <h1 class="hero__title split" id="hero-title">
+        {{ "Sua empresa perde cliente porque ninguém responde o WhatsApp" | words | safe }}
+        <em>{{ "às 22h." | words(10) | safe }}</em>
+      </h1>
+      <p class="hero__answer">
+        Eu faço o atendimento da sua empresa no WhatsApp funcionar sozinho, de dia e de noite,
+        e organizo o que hoje está em planilha e papel.
+      </p>
+      <div class="hero__cta" data-cta>
+        <a class="btn btn--primary btn--lg" href="{{ waLink }}" target="_blank" rel="noopener">
+          {{ icon("whatsapp") }} Falar no WhatsApp <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <span class="place">{{ contact.city }}</span>
+      </div>
+    </div>
+
+    <figure class="phone" aria-label="Exemplo: cliente pergunta às 21h58 e o atendimento automático responde e agenda a consulta">
+      <div class="phone__screen">
+        <div class="phone__bar">
+          <span class="phone__avatar" aria-hidden="true">SE</span>
+          <div>
+            <div class="phone__name">Sua empresa</div>
+            <div class="phone__status">online agora</div>
+          </div>
+        </div>
+        <div class="chat" data-chat>
+          <span class="chat__day">Hoje</span>
+          <p class="msg msg--in" data-step="in">Boa noite! Vocês atendem amanhã? Queria marcar uma consulta.<time>21:58</time></p>
+          <p class="msg msg--out" data-step="out">Boa noite! Atendemos sim. Amanhã tenho 8h, 10h30 e 15h. Qual fica melhor?<time>21:58</time></p>
+          <p class="msg msg--in" data-step="in">10h30<time>21:59</time></p>
+          <p class="msg msg--out" data-step="out">Pronto, consulta marcada para amanhã às 10h30. Mando um lembrete 1h antes.<time>21:59</time></p>
+          <p class="msg msg--event" data-step="event">Agendado · amanhã, 10:30</p>
+          <span class="typing" data-hidden aria-hidden="true"><span></span><span></span><span></span></span>
+        </div>
+        <div class="phone__input" aria-hidden="true">Mensagem</div>
+      </div>
+    </figure>
+  </div>
+</section>
+
+{# ── Não precisa ser assim ──────────────────────────────────────────── #}
+<section class="section section--dark" aria-labelledby="diferenciais">
+  <div class="container">
+    <p class="label" id="diferenciais">Por que a Sapará Dev</p>
+    <p class="statement" style="margin-top:28px">
+      {{ "Não precisa ser assim. Seu cliente manda mensagem, recebe resposta na hora e sai com horário marcado, enquanto você cuida do que importa." | words | safe }}
+    </p>
+
+    <ol class="grid-3 diffs">
+      {% for item in differentials %}
+      <li class="diff reveal" style="--i:{{ loop.index0 }}">
+        <span class="num">{{ loop.index | pad }}</span>
+        <h3 class="h3">{{ item.title }}</h3>
+        <p>{{ item.text }}</p>
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
+</section>
+
+{# ── Pacotes ────────────────────────────────────────────────────────── #}
+<section class="section section--mist" id="pacotes" aria-labelledby="pacotes-title">
+  <div class="container">
+    <div class="section__head section__head--split">
+      <div style="display:grid;gap:20px">
+        <p class="label">Pacotes</p>
+        <h2 class="h2" id="pacotes-title">Preço fechado, prazo definido.</h2>
+      </div>
+      <p class="lead">Escolha o ponto de partida. Se o seu caso não couber em nenhum, a gente ajusta no diagnóstico.</p>
+    </div>
+
+    <div class="grid-3">
+      {% for plan in packages %}
+      <article class="plan reveal" style="--i:{{ loop.index0 }}">
+        <div class="plan__head">
+          <h3 class="h3">{{ plan.name }}</h3>
+          <p class="plan__for">{{ plan.audience }}</p>
+        </div>
+        <div class="plan__price">
+          <p class="plan__setup">{{ plan.setup }}<small>implantação</small></p>
+          <p class="plan__monthly">+ <strong>{{ plan.monthly }}</strong> de manutenção</p>
+          <p class="plan__deadline">Pronto em {{ plan.deadline }}</p>
+        </div>
+        <ul class="plan__list">
+          {% for item in plan.includes %}
+          <li>{{ item }}</li>
+          {% endfor %}
+        </ul>
+        <div class="plan__actions">
+          <a class="btn btn--dark" href="{{ waLinkFor('Oi, Valdeir! Quero saber mais sobre o pacote ' + plan.name + '.') }}" target="_blank" rel="noopener">
+            Quero esse <span class="arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="link" href="/servicos/{{ plan.slug }}/">Ver detalhes <span class="arrow" aria-hidden="true">→</span></a>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    <p class="plans-note">A implantação é paga em duas partes: 50% para começar e 50% na entrega.</p>
+  </div>
+</section>
+
+{# ── Como funciona ──────────────────────────────────────────────────── #}
+<section class="section section--dark" aria-labelledby="processo-title">
+  <div class="container">
+    <div class="section__head section__head--split">
+      <div style="display:grid;gap:20px">
+        <p class="label">Como funciona</p>
+        <h2 class="h2" id="processo-title">Da primeira conversa à manutenção.</h2>
+      </div>
+      <p class="lead">Você sabe o preço antes de começar e acompanha cada etapa.</p>
+    </div>
+
+    <ol class="steps">
+      {% for step in steps %}
+      <li class="step" style="--i:{{ loop.index0 }}">
+        <span class="num">{{ loop.index | pad }}</span>
+        <h3 class="h3">{{ step.title }}</h3>
+        <p>{{ step.text }}</p>
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
+</section>
+
+{# ── Cases ──────────────────────────────────────────────────────────── #}
+<section class="section" aria-labelledby="cases-title">
+  <div class="container">
+    <div class="section__head section__head--split">
+      <div style="display:grid;gap:20px">
+        <p class="label">Cases</p>
+        <h2 class="h2" id="cases-title">Sistemas que já estão rodando.</h2>
+      </div>
+      <p class="lead">Projetos reais, em produção, com o resultado que importa para quem usa.</p>
+    </div>
+
+    <div class="cases">
+      {% for item in cases %}
+      <article class="case reveal" style="--i:{{ loop.index0 % 2 }}">
+        <div class="case__top">
+          <span class="label">{{ item.sector | fill | safe }}</span>
+          <span class="label" aria-hidden="true">{{ loop.index | pad }}</span>
+        </div>
+        <h3 class="case__name">{{ item.name }}</h3>
+        <div class="case__metric">
+          <p class="case__value">{{ item.metric | fill | safe }}</p>
+          <p class="case__desc">{{ item.metricLabel }}</p>
+        </div>
+        <a class="card-link" href="{{ item.url }}">Ver case <span class="arrow" aria-hidden="true">→</span></a>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{# ── Para quem ──────────────────────────────────────────────────────── #}
+<section class="section section--dark" aria-labelledby="segmentos-title">
+  <div class="container">
+    <div class="section__head">
+      <p class="label">Para quem eu trabalho</p>
+      <h2 class="h2" id="segmentos-title">Negócios que vivem de atendimento.</h2>
+    </div>
+
+    <ul class="segments">
+      {% for item in segments %}
+      <li class="segment reveal" style="--i:{{ loop.index0 }}">
+        {{ icon(item.icon) }}
+        <h3 class="h3">{{ item.name }}</h3>
+        <p>{{ item.text }}</p>
+      </li>
+      {% endfor %}
+    </ul>
+    <p class="segments-note">E outras pequenas empresas de Boa Vista.</p>
+  </div>
+</section>
+
+{# ── Do blog ────────────────────────────────────────────────────────── #}
+{% if recentPosts.length %}
+<section class="section" aria-labelledby="blog-title">
+  <div class="container">
+    <div class="section__head section__head--split">
+      <div style="display:grid;gap:20px">
+        <p class="label">Do blog</p>
+        <h2 class="h2" id="blog-title">Como eu resolvo problemas reais.</h2>
+      </div>
+      <p><a class="link" href="/blog/">Ver todos os posts <span class="arrow" aria-hidden="true">→</span></a></p>
+    </div>
+
+    <div class="posts">
+      {% for post in recentPosts %}
+      <article class="post-card reveal" style="--i:{{ loop.index0 }}">
+        <time datetime="{{ post.dateString }}">{{ post.dateLong }}</time>
+        <h3 class="h3">{{ post.title }}</h3>
+        {% if post.description %}<p>{{ post.description }}</p>{% endif %}
+        <a class="card-link" href="{{ post.url }}">Ler o post <span class="arrow" aria-hidden="true">→</span></a>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{# ── CTA final ──────────────────────────────────────────────────────── #}
+<section class="section section--dark cta" aria-labelledby="cta-title">
+  <div class="container">
+    <h2 class="cta__title" id="cta-title">Bora <em>conversar?</em></h2>
+    <div class="cta__row" data-cta>
+      <a class="btn btn--primary btn--lg" href="{{ waLink }}" target="_blank" rel="noopener">
+        {{ icon("whatsapp") }} Falar no WhatsApp <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <p>Respondo no mesmo dia. {{ contact.city }}.</p>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

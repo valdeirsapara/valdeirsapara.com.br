@@ -3,9 +3,10 @@ import matter from "gray-matter";
 import nunjucks from "nunjucks";
 import { rm } from "node:fs/promises";
 import path from "node:path";
+import { cases, contact, differentials, packages, segments, steps, whatsappLink } from "./site-data";
 
 const SITE_NAME = "Valdeir Sapará";
-const SITE_URL = "https://valdeirsapara.com.br";
+const SITE_URL = "https://www.valdeirsapara.com.br";
 const SITE_DESCRIPTION = "Notas sobre programação, experimentos e coisas que estou aprendendo.";
 
 type Post = {
@@ -48,6 +49,27 @@ const templates = nunjucks.configure("templates", {
   trimBlocks: true,
   lstripBlocks: true,
 });
+
+/** Placeholder de conteúdo pendente: "FILL:CNPJ" vira <mark>[[PREENCHER: CNPJ]]</mark>. */
+templates.addFilter("fill", (value: unknown) => {
+  const text = String(value ?? "");
+  if (text.startsWith("FILL:")) {
+    return `<mark class="fill">[[PREENCHER: ${escapeHtml(text.slice(5))}]]</mark>`;
+  }
+  return escapeHtml(text);
+});
+
+/** Quebra um texto em <span class="w"> por palavra, para as animações. */
+templates.addFilter("words", (value: unknown, offset = 0) =>
+  String(value ?? "")
+    .trim()
+    .split(/\s+/)
+    .map((word, index) => `<span class="w" style="--i:${index + offset}">${escapeHtml(word)}</span>`)
+    .join(" "),
+);
+
+templates.addFilter("pad", (value: unknown) => String(value).padStart(2, "0"));
+templates.addGlobal("waLinkFor", (message: string) => whatsappLink(message));
 
 const TERMINAL_LANGUAGES = new Set(["console", "shell", "sh", "bash", "zsh", "terminal"]);
 
@@ -330,6 +352,7 @@ function createSitemap(posts: Post[]): string {
   const latest = posts[0]?.dateString ?? new Date().toISOString().slice(0, 10);
   const entries = [
     { loc: `${SITE_URL}/`, lastmod: latest },
+    { loc: `${SITE_URL}/blog/`, lastmod: latest },
     { loc: `${SITE_URL}/sobre/`, lastmod: latest },
     ...posts.map((post) => ({ loc: `${SITE_URL}${post.url}`, lastmod: post.dateString })),
   ];
@@ -391,10 +414,54 @@ for (const [index, post] of posts.entries()) {
   console.log(`  → ${post.url}`);
 }
 
-const homeHtml = templates.render("home.njk", {
+const assetVersion = Date.now().toString(36);
+
+const schemaJson = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: "Sapará Dev",
+  url: `${SITE_URL}/`,
+  email: contact.email,
+  telephone: `+${contact.whatsapp}`,
+  founder: { "@type": "Person", name: "Valdeir Sapará" },
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Boa Vista",
+    addressRegion: "RR",
+    addressCountry: "BR",
+  },
+  areaServed: { "@type": "City", name: "Boa Vista" },
+}).replaceAll("<", "\\u003c");
+
+const commercialContext = {
   ...siteContext,
-  pageTitle: `${SITE_NAME} — Blog pessoal`,
+  assetVersion,
+  schemaJson,
+  contact,
+  waLink: whatsappLink(),
+};
+
+const homeHtml = templates.render("site/home.njk", {
+  ...commercialContext,
+  pageTitle: "Sapará Dev — Atendimento no WhatsApp, sites e sistemas em Boa Vista - RR",
+  ogTitle: "Sapará Dev — sua empresa atendendo no WhatsApp de dia e de noite",
+  pageDescription:
+    "Atendimento automático no WhatsApp, sites e sistemas sob medida para clínicas, laboratórios, veterinárias e pequenas empresas de Boa Vista - RR. Preço fechado e prazo definido.",
   canonicalUrl: `${SITE_URL}/`,
+  bodyClass: "home",
+  navActive: "home",
+  differentials,
+  packages,
+  steps,
+  cases,
+  segments,
+  recentPosts: posts.slice(0, 2),
+});
+
+const blogHtml = templates.render("home.njk", {
+  ...siteContext,
+  pageTitle: `Blog — ${SITE_NAME}`,
+  canonicalUrl: `${SITE_URL}/blog/`,
   bodyClass: "home-page",
   navActive: "posts",
   posts,
@@ -413,6 +480,9 @@ const sobreHtml = templates.render("sobre.njk", {
 
 await Promise.all([
   Bun.write(path.join("dist", "index.html"), homeHtml),
+  Bun.write(path.join("dist", "blog", "index.html"), blogHtml),
+  Bun.write(path.join("dist", "site.css"), Bun.file(path.join("static", "site.css"))),
+  Bun.write(path.join("dist", "site.js"), Bun.file(path.join("static", "site.js"))),
   Bun.write(path.join("dist", "sobre", "index.html"), sobreHtml),
   Bun.write(path.join("dist", "styles.css"), Bun.file(path.join("static", "styles.css"))),
   Bun.write(path.join("dist", "favicon.svg"), Bun.file(path.join("static", "favicon.svg"))),
@@ -424,6 +494,18 @@ await Promise.all([
   ),
 ]);
 
+console.log("✓ / (home comercial)");
+console.log("✓ /blog/");
 console.log("✓ /sobre/");
+
+// Pendências de conteúdo: tudo que ainda está como [[PREENCHER: ...]]
+const pending = new Set<string>();
+for (const html of [homeHtml]) {
+  for (const match of html.matchAll(/\[\[PREENCHER: ([^\]]+)\]\]/g)) pending.add(match[1]!);
+}
+if (pending.size > 0) {
+  console.log(`\n⚠ ${pending.size} pendência${pending.size === 1 ? "" : "s"} de conteúdo [[PREENCHER]]:`);
+  for (const item of pending) console.log(`  - ${item}`);
+}
 console.log("✓ /sitemap.xml");
 console.log(`\n${posts.length} texto${posts.length === 1 ? "" : "s"} publicado${posts.length === 1 ? "" : "s"}.`);

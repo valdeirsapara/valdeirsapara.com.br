@@ -36,13 +36,14 @@
 
   <header class="site-header">
     <div class="site-header__inner">
-      <a class="brand" href="/" aria-label="Página inicial de {{ siteName }}">
+      <a class="brand" href="/blog/" aria-label="Página inicial do blog">
         <span class="brand__caret" aria-hidden="true">❯</span>
         <span class="brand__host">valdeirsapara.com.br</span>
       </a>
 
       <nav class="site-nav" aria-label="Navegação principal">
-        <a href="/"{% if navActive == "posts" %} aria-current="page"{% endif %}>/posts</a>
+        <a href="/"><span aria-hidden="true">←</span> Sapará Dev</a>
+        <a href="/blog/"{% if navActive == "posts" %} aria-current="page"{% endif %}>/posts</a>
         <a href="/sobre/"{% if navActive == "sobre" %} aria-current="page"{% endif %}>/sobre</a>
         <a href="https://github.com/valdeirsapara" rel="me noopener">/github</a>
         <button
