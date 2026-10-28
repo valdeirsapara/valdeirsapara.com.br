@@ -1,12 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Terminal de Valdeir Sapará">
-  <rect width="64" height="64" rx="14" fill="#15120e"/>
-  <path
-    d="M16 21 L28 32 L16 43"
-    fill="none"
-    stroke="#f6a06b"
-    stroke-width="5.5"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  />
-  <rect x="34" y="38.5" width="16" height="5" rx="2.5" fill="#aebf92"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Sapará Dev">
+  <rect width="64" height="64" rx="14" fill="#111111"/>
+  <path d="M32 9 55 32 32 55 9 32z" fill="#e8834a"/>
+  <path d="M32 22.5 41.5 32 32 41.5 22.5 32z" fill="#111111"/>
 </svg>

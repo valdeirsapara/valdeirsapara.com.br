@@ -494,6 +494,9 @@ await Promise.all([
   Bun.write(path.join("dist", "sobre", "index.html"), sobreHtml),
   Bun.write(path.join("dist", "styles.css"), Bun.file(path.join("static", "styles.css"))),
   Bun.write(path.join("dist", "favicon.svg"), Bun.file(path.join("static", "favicon.svg"))),
+  Bun.write(path.join("dist", "favicon.ico"), Bun.file(path.join("static", "favicon.ico"))),
+  Bun.write(path.join("dist", "apple-touch-icon.png"), Bun.file(path.join("static", "apple-touch-icon.png"))),
+  Bun.write(path.join("dist", "icon-512.png"), Bun.file(path.join("static", "icon-512.png"))),
   Bun.write(path.join("dist", "feed.xml"), createFeed(posts)),
   Bun.write(path.join("dist", "sitemap.xml"), createSitemap(posts)),
   Bun.write(

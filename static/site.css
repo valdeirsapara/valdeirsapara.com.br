@@ -288,16 +288,17 @@ body.site::before {
   -webkit-mask-image: radial-gradient(ellipse 60% 55% at 70% 35%, #000 10%, transparent 75%);
   mask-image: radial-gradient(ellipse 60% 55% at 70% 35%, #000 10%, transparent 75%);
 }
-/* Feixe de luz: a "luz da tela" do celular às 22h */
-.hero__beam {
+/* Feixe de luz: a "luz da tela" do celular às 22h.
+   Fica preso ao palco do celular (não à largura da janela) e se apaga
+   bem antes da borda do hero, então não corta em monitor largo. */
+.stage::before {
+  content: "";
   position: absolute;
-  right: -10%;
-  top: 8%;
-  width: min(1100px, 120vw);
-  aspect-ratio: 1;
-  background:
-    radial-gradient(closest-side, rgba(232, 131, 74, .32), rgba(232, 131, 74, .08) 45%, transparent 70%);
-  filter: blur(20px);
+  inset: -38%;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(232, 131, 74, .34), rgba(232, 131, 74, .1) 45%, rgba(232, 131, 74, 0) 72%);
 }
 
 .hero__inner { display: grid; gap: 64px; align-items: center; }
