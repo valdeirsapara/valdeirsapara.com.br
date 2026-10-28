@@ -3,7 +3,7 @@ import matter from "gray-matter";
 import nunjucks from "nunjucks";
 import { rm } from "node:fs/promises";
 import path from "node:path";
-import { cases, contact, differentials, homeHiddenPosts, packages, segments, stats, steps, whatsappLink } from "./site-data";
+import { cases, contact, differentials, homeHiddenPosts, maker, packages, segments, stats, steps, whatsappLink } from "./site-data";
 
 const SITE_NAME = "Valdeir Sapará";
 const SITE_URL = "https://www.valdeirsapara.com.br";
@@ -463,6 +463,7 @@ const homeHtml = templates.render("site/home.njk", {
   cases,
   segments,
   stats,
+  maker,
   recentPosts: posts.filter((post) => !homeHiddenPosts.includes(post.slug)).slice(0, 2),
 });
 
@@ -505,6 +506,11 @@ await Promise.all([
   ),
 ]);
 
+// Imagens do site (ex.: foto da seção "Quem faz"): static/img/** → dist/img/**
+for await (const file of new Bun.Glob("**/*").scan("static/img")) {
+  await Bun.write(path.join("dist", "img", file), Bun.file(path.join("static", "img", file)));
+}
+
 console.log("✓ / (home comercial)");
 console.log("✓ /blog/");
 console.log("✓ /sobre/");
@@ -513,6 +519,7 @@ console.log("✓ /sobre/");
 const pending: string[] = [];
 if (isPending(contact.cnpj)) pending.push("CNPJ (rodapé)");
 if (isPending(contact.instagram)) pending.push("Instagram (rodapé)");
+if (isPending(maker.photo)) pending.push("foto da seção Quem faz (static/img/ + maker.photo)");
 for (const item of cases) {
   if (isPending(item.metric)) pending.push(`case ${item.name}: número do resultado (card aparece sem ele)`);
 }

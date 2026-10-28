@@ -34,7 +34,7 @@ export const differentials = [
     text: "Mensagem de cliente seu não fica sem resposta. A sua também não.",
   },
   {
-    title: "Tech Lead na Defensoria Pública de RR, com sistemas críticos em produção.",
+    title: "Sistemas críticos em produção, todos os dias.",
     text: "Cuido de sistemas que não podem parar. O seu recebe o mesmo padrão de cuidado.",
   },
 ];
@@ -177,3 +177,14 @@ export const stats = [
 export const homeHiddenPosts = [
   "de-37-segundos-para-028-como-deixei-uma-tela-134-mais-rapida-sem-trocar-de-framework",
 ];
+
+/**
+ * Seção "Quem faz" da home.
+ * FOTO: coloque a foto em static/img/ (vertical 4:5, ~960×1200, JPG ou WebP)
+ * e preencha `photo` com o caminho público, ex.: "/img/valdeir.jpg".
+ * Enquanto estiver vazio, a home mostra o espaço reservado.
+ */
+export const maker = {
+  photo: "/img/valdeir.webp",
+  photoAlt: "Valdeir Sapará",
+};

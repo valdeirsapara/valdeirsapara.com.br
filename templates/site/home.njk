@@ -330,15 +330,18 @@
 {# ══ Quem faz ═══════════════════════════════════════════════════════ #}
 <section class="block block--light maker" aria-labelledby="maker-title">
   <div class="container maker__grid">
-    {# FOTO: troque o bloco abaixo por
-       <img class="maker__photo" src="/img/valdeir.jpg" alt="Valdeir Sapará" width="480" height="600" loading="lazy">
-       (foto real, vertical 4:5) #}
+    {# FOTO: coloque o arquivo em static/img/ e preencha maker.photo em src/site-data.ts.
+       Vazio = espaço reservado abaixo. Formato: vertical 4:5. #}
+    {% if not (maker.photo | pending) %}
+    <img class="maker__photo" src="{{ maker.photo }}" alt="{{ maker.photoAlt }}" width="480" height="600" loading="lazy" decoding="async">
+    {% else %}
     <div class="maker__photo maker__photo--placeholder" role="img" aria-label="Foto de Valdeir Sapará">
       <svg viewBox="0 0 120 150" aria-hidden="true"><circle cx="60" cy="56" r="26"/><path d="M14 150c4-34 22-52 46-52s42 18 46 52"/></svg>
     </div>
+    {% endif %}
     <div class="maker__copy">
       <p class="kicker">Quem faz</p>
-      <h2 class="title" id="maker-title">Valdeir Sapará, Tech Lead na Defensoria Pública de RR.</h2>
+      <h2 class="title" id="maker-title">Valdeir Sapará, quem desenvolve o seu projeto.</h2>
       <p class="lede">Atendo pessoalmente em Boa Vista.</p>
       <a class="link" href="/sobre/">Conhecer minha trajetória <span class="arrow" aria-hidden="true">→</span></a>
     </div>
