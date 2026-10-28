@@ -3,7 +3,7 @@ import matter from "gray-matter";
 import nunjucks from "nunjucks";
 import { rm } from "node:fs/promises";
 import path from "node:path";
-import { cases, contact, differentials, packages, segments, stats, steps, whatsappLink } from "./site-data";
+import { cases, contact, differentials, homeHiddenPosts, packages, segments, stats, steps, whatsappLink } from "./site-data";
 
 const SITE_NAME = "Valdeir Sapará";
 const SITE_URL = "https://www.valdeirsapara.com.br";
@@ -67,6 +67,13 @@ templates.addFilter("words", (value: unknown, offset = 0) =>
     .map((word, index) => `<span class="w" style="--i:${index + offset}">${escapeHtml(word)}</span>`)
     .join(" "),
 );
+
+/** Valor ainda não preenchido: vazio ou com [[...]]. Esses itens não aparecem no site. */
+function isPending(value: unknown): boolean {
+  const text = String(value ?? "").trim();
+  return text === "" || text.startsWith("FILL:") || text.includes("[[");
+}
+templates.addFilter("pending", isPending);
 
 templates.addFilter("pad", (value: unknown) => String(value).padStart(2, "0"));
 templates.addGlobal("waLinkFor", (message: string) => whatsappLink(message));
@@ -456,7 +463,7 @@ const homeHtml = templates.render("site/home.njk", {
   cases,
   segments,
   stats,
-  recentPosts: posts.slice(0, 2),
+  recentPosts: posts.filter((post) => !homeHiddenPosts.includes(post.slug)).slice(0, 2),
 });
 
 const blogHtml = templates.render("home.njk", {
@@ -499,13 +506,18 @@ console.log("✓ / (home comercial)");
 console.log("✓ /blog/");
 console.log("✓ /sobre/");
 
-// Pendências de conteúdo: tudo que ainda está como [[PREENCHER: ...]]
-const pending = new Set<string>();
-for (const html of [homeHtml]) {
-  for (const match of html.matchAll(/\[\[PREENCHER: ([^\]]+)\]\]/g)) pending.add(match[1]!);
+// Pendências de conteúdo: itens ocultos no site até serem preenchidos
+const pending: string[] = [];
+if (isPending(contact.cnpj)) pending.push("CNPJ (rodapé)");
+if (isPending(contact.instagram)) pending.push("Instagram (rodapé)");
+for (const item of cases) {
+  if (isPending(item.metric)) pending.push(`case ${item.name}: número do resultado (card aparece sem ele)`);
 }
-if (pending.size > 0) {
-  console.log(`\n⚠ ${pending.size} pendência${pending.size === 1 ? "" : "s"} de conteúdo [[PREENCHER]]:`);
+for (const item of stats) {
+  if (isPending(item.value)) pending.push(`número oculto na linha do hero: "${item.value}${item.suffix} ${item.label}"`);
+}
+if (pending.length > 0) {
+  console.log(`\n⚠ ${pending.length} ${pending.length === 1 ? "item oculto" : "itens ocultos"} até preencher (src/site-data.ts):`);
   for (const item of pending) console.log(`  - ${item}`);
 }
 console.log("✓ /sitemap.xml");

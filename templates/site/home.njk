@@ -1,239 +1,361 @@
 {% extends "site/layout.njk" %}
 {% from "site/icons.njk" import icon %}
 
+{% macro ticks() %}<svg class="ticks" viewBox="0 0 16 10" aria-hidden="true"><path d="M1 5.5 3.8 8.3 9.5 1.7M6.5 8.3 12.5 1.7" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>{% endmacro %}
+
 {% block content %}
 
-{# ── Abertura ───────────────────────────────────────────────────────── #}
+{# ══ Abertura ═══════════════════════════════════════════════════════ #}
 <section class="hero" aria-labelledby="hero-title">
-  <div class="gridlines" aria-hidden="true"></div>
-  <div class="glow glow--hero" aria-hidden="true"></div>
-  <div class="container hero__grid">
+  <div class="hero__bg" aria-hidden="true">
+    <div class="hero__grid-lines"></div>
+    <div class="hero__beam"></div>
+  </div>
+
+  <div class="container hero__inner">
     <div class="hero__copy">
-      <p class="pill"><b>Novo</b> Atendimento automático no WhatsApp em 15 dias</p>
+      <p class="place-pill"><span class="place-pill__dot" aria-hidden="true"></span>Boa Vista - RR</p>
       <h1 class="hero__title split" id="hero-title">
-        {{ "Sua empresa perde cliente porque ninguém responde o WhatsApp" | words | safe }}
-        <em>{{ "às 22h." | words(10) | safe }}</em>
+        {{ "Sua empresa perde cliente porque ninguém responde o WhatsApp às 22h." | words | safe }}
       </h1>
       <p class="hero__answer">
         Eu faço o atendimento da sua empresa no WhatsApp funcionar sozinho, de dia e de noite,
         e organizo o que hoje está em planilha e papel.
       </p>
       <div class="hero__cta" data-cta>
-        <a class="btn btn--primary btn--lg" href="{{ waLink }}" target="_blank" rel="noopener">
+        <a class="btn btn--accent btn--lg" href="{{ waLink }}" target="_blank" rel="noopener">
           {{ icon("whatsapp") }} Falar no WhatsApp <span class="arrow" aria-hidden="true">→</span>
         </a>
-        <span class="place">{{ contact.city }}</span>
+        <a class="btn btn--ghost btn--lg" href="#pacotes">Ver pacotes e preços</a>
       </div>
     </div>
 
-    <figure class="phone" aria-label="Exemplo: cliente pergunta às 21h58 e o atendimento automático responde e agenda a consulta">
-      <div class="phone__screen">
-        <div class="phone__bar">
-          <span class="phone__avatar" aria-hidden="true">SE</span>
-          <div>
-            <div class="phone__name">Sua empresa</div>
-            <div class="phone__status">online agora</div>
+    <div class="stage" data-stage aria-label="Exemplo: um cliente pergunta às 21h58 e o atendimento automático responde e agenda a consulta" role="img">
+      <div class="stage__layer" data-depth="0.5">
+        <div class="phone">
+          <div class="phone__screen">
+            <div class="phone__status" aria-hidden="true">
+              <span>21:58</span>
+              <span class="phone__icons"><i></i><i></i><i></i><b></b></span>
+            </div>
+            <div class="phone__bar">
+              <span class="phone__back" aria-hidden="true">‹</span>
+              <span class="phone__avatar">SE</span>
+              <div>
+                <div class="phone__name">Sua empresa</div>
+                <div class="phone__online">online</div>
+              </div>
+            </div>
+            <div class="chat" data-chat>
+              <span class="chat__day">Hoje</span>
+              <p class="msg msg--in" data-step="in">Boa noite! Vocês atendem amanhã? Queria marcar uma consulta.<time>21:58</time></p>
+              <p class="msg msg--out" data-step="out">Boa noite! Atendemos sim. Amanhã tenho 8h, 10h30 e 15h. Qual fica melhor?<time>21:58 {{ ticks() }}</time></p>
+              <p class="msg msg--in" data-step="in">10h30, por favor<time>21:59</time></p>
+              <p class="msg msg--out" data-step="out">Pronto! Consulta marcada para amanhã às 10h30. Mando um lembrete 1h antes.<time>21:59 {{ ticks() }}</time></p>
+              <span class="typing" data-hidden><span></span><span></span><span></span></span>
+            </div>
+            <div class="phone__input" aria-hidden="true"><span>Mensagem</span><i></i></div>
           </div>
         </div>
-        <div class="chat" data-chat>
-          <span class="chat__day">Hoje</span>
-          <p class="msg msg--in" data-step="in">Boa noite! Vocês atendem amanhã? Queria marcar uma consulta.<time>21:58</time></p>
-          <p class="msg msg--out" data-step="out">Boa noite! Atendemos sim. Amanhã tenho 8h, 10h30 e 15h. Qual fica melhor?<time>21:58</time></p>
-          <p class="msg msg--in" data-step="in">10h30<time>21:59</time></p>
-          <p class="msg msg--out" data-step="out">Pronto, consulta marcada para amanhã às 10h30. Mando um lembrete 1h antes.<time>21:59</time></p>
-          <p class="msg msg--event" data-step="event">Agendado · amanhã, 10:30</p>
-          <span class="typing" data-hidden aria-hidden="true"><span></span><span></span><span></span></span>
+      </div>
+
+      <p class="mock-note mock-note--stage" aria-hidden="true">Ilustração com dados de exemplo</p>
+
+      <div class="float float--notify" data-depth="1.4" aria-hidden="true">
+        <span class="float__avatar">M</span>
+        <div>
+          <p class="float__title">Marina <time>21:58</time></p>
+          <p class="float__text">Vocês atendem amanhã?</p>
         </div>
-        <div class="phone__input" aria-hidden="true">Mensagem</div>
       </div>
-    </figure>
+
+      <div class="float float--slots" data-depth="1.1" aria-hidden="true">
+        <p class="float__title">Amanhã</p>
+        <div class="slots">
+          <span>08:00</span><span class="is-picked">10:30</span><span>15:00</span>
+        </div>
+        <p class="float__ok"><span></span>Consulta confirmada</p>
+      </div>
+
+      <div class="float float--toggle" data-depth="1.7" aria-hidden="true">
+        <span class="toggle"><span></span></span>
+        <div>
+          <p class="float__title">Atendimento automático</p>
+          <p class="float__text">Ligado, inclusive à noite</p>
+        </div>
+      </div>
+    </div>
   </div>
+
   <div class="container">
-    <dl class="stats">
-      {% for item in stats %}
-      <div class="stat">
+    {# Itens com "[[...]]" (ex.: [[ANOS]]) ficam ocultos até serem preenchidos em src/site-data.ts #}
+    <dl class="statline">
+      {% for item in stats %}{% if not (item.value | pending) %}
+      <div class="statline__item">
+        <dd><span data-count="{{ item.value }}">{{ item.value }}</span>{{ item.suffix }}</dd>
         <dt>{{ item.label }}</dt>
-        <dd data-count="{{ item.value }}">{{ item.value }}<span>{{ item.suffix }}</span></dd>
       </div>
-      {% endfor %}
+      {% endif %}{% endfor %}
     </dl>
   </div>
 </section>
 
-{# ── Não precisa ser assim ──────────────────────────────────────────── #}
-<section class="section" aria-labelledby="diferenciais">
+{# ══ Não precisa ser assim ══════════════════════════════════════════ #}
+<section class="block block--dark why" aria-labelledby="why-title">
   <div class="container">
-    <p class="label" id="diferenciais">Por que a Sapará Dev</p>
-    <p class="statement" style="margin-top:28px">
+    <h2 class="sr-only" id="why-title">Por que a Sapará Dev</h2>
+    <p class="statement">
       {{ "Não precisa ser assim. Seu cliente manda mensagem, recebe resposta na hora e sai com horário marcado, enquanto você cuida do que importa." | words | safe }}
     </p>
 
-    <ol class="grid-3 diffs">
+    <ol class="diffs">
       {% for item in differentials %}
-      <li class="diff reveal" style="--i:{{ loop.index0 }}">
-        <span class="num">{{ loop.index | pad }}</span>
-        <h3 class="h3">{{ item.title }}</h3>
-        <p>{{ item.text }}</p>
+      <li class="diff">
+        <span class="diff__num">{{ loop.index | pad }}</span>
+        <h3 class="diff__title">{{ item.title }}</h3>
+        <p class="diff__text">{{ item.text }}</p>
       </li>
       {% endfor %}
     </ol>
   </div>
 </section>
 
-{# ── Pacotes ────────────────────────────────────────────────────────── #}
-<section class="section section--mist" id="pacotes" aria-labelledby="pacotes-title">
+{# ══ Pacotes ════════════════════════════════════════════════════════ #}
+<section class="block block--light" id="pacotes" aria-labelledby="pacotes-title">
   <div class="container">
-    <div class="section__head section__head--split">
-      <div style="display:grid;gap:20px">
-        <p class="label">Pacotes</p>
-        <h2 class="h2" id="pacotes-title">Preço fechado, prazo definido.</h2>
-      </div>
-      <p class="lead">Escolha o ponto de partida. Se o seu caso não couber em nenhum, a gente ajusta no diagnóstico.</p>
-    </div>
+    <header class="head">
+      <p class="kicker">Pacotes</p>
+      <h2 class="title" id="pacotes-title">Preço fechado, prazo definido.</h2>
+      <p class="lede">Escolha por onde começar. Se o seu caso não couber em nenhum, a gente ajusta no diagnóstico.</p>
+    </header>
 
-    <div class="grid-3">
+    <div class="plans">
       {% for plan in packages %}
-      <article class="plan reveal" style="--i:{{ loop.index0 }}">
-        <div class="plan__head">
-          <h3 class="h3">{{ plan.name }}</h3>
+      <article class="plan">
+        <div class="plan__visual" aria-hidden="true">
+          {% if plan.slug == "atendimento-whatsapp" %}
+          <div class="mock mock--inbox">
+            <div class="mock__top"><span>Conversas de hoje</span><span class="mock__live">ao vivo</span></div>
+            <ul class="inbox">
+              <li><span class="av">M</span><div><b>Marina</b><p>Consulta marcada para amanhã às 10h30.</p></div><em class="chip chip--ok">Agendado</em></li>
+              <li><span class="av">J</span><div><b>João Pedro</b><p>Vou chamar alguém da equipe.</p></div><em class="chip chip--human">Equipe</em></li>
+              <li><span class="av">A</span><div><b>Ana Clara</b><p>Sua consulta é hoje às 15h. Confirma?</p></div><em class="chip">Lembrete</em></li>
+            </ul>
+          </div>
+          {% elif plan.slug == "site" %}
+          <div class="mock mock--browser">
+            <div class="browser__bar"><i></i><i></i><i></i><span>suaempresa.com.br</span></div>
+            <div class="site-mini">
+              <div class="site-mini__nav"><b>Clínica Exemplo</b><span></span><span></span></div>
+              <div class="site-mini__hero">
+                <p class="site-mini__h">Cuidado de verdade, perto de você.</p>
+                <span class="site-mini__btn">Agendar pelo WhatsApp</span>
+              </div>
+            </div>
+          </div>
+          {% else %}
+          <div class="mock mock--app">
+            <div class="app__main">
+              <div class="app__kpis">
+                <div><p>Abaixo do mínimo</p><b class="warn">3</b></div>
+                <div><p>Orçamentos abertos</p><b>12</b></div>
+              </div>
+              <div class="app__table">
+                <div class="row"><span>Luva nitrílica M</span><span class="lvl"><i style="--v:.18"></i></span><em class="chip chip--warn">Repor</em></div>
+                <div class="row"><span>Seringa 5 ml</span><span class="lvl"><i style="--v:.62"></i></span><em class="chip">Ok</em></div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+          <p class="mock-note" aria-hidden="true">Ilustração com dados de exemplo</p>
+        </div>
+
+        <div class="plan__body">
+          <h3 class="plan__name">{{ plan.name }}</h3>
           <p class="plan__for">{{ plan.audience }}</p>
-        </div>
-        <div class="plan__price">
-          <p class="plan__setup">{{ plan.setup }}<small>implantação</small></p>
-          <p class="plan__monthly">+ <strong>{{ plan.monthly }}</strong> de manutenção</p>
-          <p class="plan__deadline">Pronto em {{ plan.deadline }}</p>
-        </div>
-        <ul class="plan__list">
-          {% for item in plan.includes %}
-          <li>{{ item }}</li>
-          {% endfor %}
-        </ul>
-        <div class="plan__actions">
-          <a class="btn btn--dark" href="{{ waLinkFor('Oi, Valdeir! Quero saber mais sobre o pacote ' + plan.name + '.') }}" target="_blank" rel="noopener">
-            Quero esse <span class="arrow" aria-hidden="true">→</span>
-          </a>
-          <a class="link" href="/servicos/{{ plan.slug }}/">Ver detalhes <span class="arrow" aria-hidden="true">→</span></a>
+          <div class="price">
+            <p class="price__main">{{ plan.setup }}</p>
+            <p class="price__sub">de implantação + <b>{{ plan.monthly }}</b></p>
+            <p class="price__time">{{ plan.deadline }}</p>
+          </div>
+          <ul class="includes">
+            {% for item in plan.includes %}
+            <li>{{ item }}</li>
+            {% endfor %}
+          </ul>
+          <a class="btn btn--dark plan__btn" href="{{ waLinkFor('Oi, Valdeir! Quero saber mais sobre o pacote ' + plan.name + '.') }}" target="_blank" rel="noopener">Quero esse pacote <span class="arrow" aria-hidden="true">→</span></a>
         </div>
       </article>
       {% endfor %}
     </div>
-    <p class="plans-note">A implantação é paga em duas partes: 50% para começar e 50% na entrega.</p>
+    <p class="plans__foot">A implantação é paga em duas partes: 50% para começar e 50% na entrega.</p>
   </div>
 </section>
 
-{# ── Como funciona ──────────────────────────────────────────────────── #}
-<section class="section section--dark" aria-labelledby="processo-title">
-  <div class="gridlines" aria-hidden="true"></div>
-  <div class="container">
-    <div class="section__head section__head--split">
-      <div style="display:grid;gap:20px">
-        <p class="label">Como funciona</p>
-        <h2 class="h2" id="processo-title">Da primeira conversa à manutenção.</h2>
-      </div>
-      <p class="lead">Você sabe o preço antes de começar e acompanha cada etapa.</p>
-    </div>
+{# ══ Como funciona ══════════════════════════════════════════════════ #}
+<section class="block block--dark process" aria-labelledby="processo-title">
+  <div class="container process__grid">
+    <header class="process__head">
+      <p class="kicker">Como funciona</p>
+      <h2 class="title" id="processo-title">Da primeira conversa à manutenção.</h2>
+      <p class="lede">Você sabe o preço antes de começar e acompanha cada etapa.</p>
+      <p class="process__count" aria-hidden="true"><span data-step-current>01</span> / {{ steps.length | pad }}</p>
+    </header>
 
-    <ol class="steps">
+    <ol class="steps" data-steps>
+      <span class="steps__rail" aria-hidden="true"><span class="steps__fill"></span></span>
       {% for step in steps %}
-      <li class="step" style="--i:{{ loop.index0 }}">
-        <span class="num">{{ loop.index | pad }}</span>
-        <h3 class="h3">{{ step.title }}</h3>
-        <p>{{ step.text }}</p>
+      <li class="step" data-step-item="{{ loop.index | pad }}">
+        <span class="step__num">{{ loop.index | pad }}</span>
+        <h3 class="step__title">{{ step.title }}</h3>
+        <p class="step__text">{{ step.text }}</p>
       </li>
       {% endfor %}
     </ol>
   </div>
 </section>
 
-{# ── Cases ──────────────────────────────────────────────────────────── #}
-<section class="section" aria-labelledby="cases-title">
+{# ══ Cases ══════════════════════════════════════════════════════════ #}
+<section class="block block--dark cases-block" aria-labelledby="cases-title">
   <div class="container">
-    <div class="section__head section__head--split">
-      <div style="display:grid;gap:20px">
-        <p class="label">Cases</p>
-        <h2 class="h2" id="cases-title">Sistemas que já estão rodando.</h2>
+    <header class="head head--split">
+      <div>
+        <p class="kicker">Cases</p>
+        <h2 class="title" id="cases-title">Sistemas que já estão rodando.</h2>
       </div>
-      <p class="lead">Projetos reais, em produção, com o resultado que importa para quem usa.</p>
-    </div>
+      <a class="link link--light" href="/cases/">Ver todos os cases <span class="arrow" aria-hidden="true">→</span></a>
+    </header>
 
     <div class="cases">
+      {# Case sem `metric` aparece sem o número; preencha em src/site-data.ts #}
       {% for item in cases %}
-      <article class="case reveal" data-spotlight style="--i:{{ loop.index0 % 2 }}">
-        <div class="case__top">
-          <span class="label">{{ item.sector | fill | safe }}</span>
-          <span class="label" aria-hidden="true">{{ loop.index | pad }}</span>
+      <article class="case case--{{ item.slug }}" data-spotlight data-inview>
+        <div class="case__visual" aria-hidden="true">
+          {% if item.slug == "logisticaapp" %}
+          <svg class="route" viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice">
+            <g class="route__streets"><path d="M0 60H400M0 130H400M0 200H400M70 0V240M170 0V240M270 0V240M350 0V240M0 20 400 230"/></g>
+            <path id="route-path" class="route__path" d="M48 196 C 110 196, 120 130, 170 130 S 240 60, 300 60 S 360 110, 352 150"/>
+            <circle class="route__pin" cx="48" cy="196" r="6"/>
+            <circle class="route__pin route__pin--end" cx="352" cy="150" r="7"/>
+            <circle class="route__truck" r="5"><animateMotion dur="5s" repeatCount="indefinite" rotate="auto"><mpath href="#route-path"/></animateMotion></circle>
+          </svg>
+          <div class="route__card"><b>Entrega 0142</b><p>Saiu para entrega</p></div>
+          <p class="mock-note" aria-hidden="true">Ilustração com dados de exemplo</p>
+          {% elif item.slug == "atendimento-whatsapp" %}
+          <div class="bubbles">
+            <p class="b b--in">Tem horário sábado?</p>
+            <p class="b b--out">Tenho sim! 9h ou 11h?</p>
+            <p class="b b--in">11h</p>
+            <p class="b b--out">Agendado ✓ Te lembro na sexta.</p>
+          </div>
+          <p class="mock-note" aria-hidden="true">Ilustração com dados de exemplo</p>
+          {% elif item.slug == "recapi" %}
+          <div class="cams">
+            {% for n in range(0, 12) %}
+            <span class="cam" style="--d:{{ n }}"><i>CAM {{ (n + 1) | pad }}</i></span>
+            {% endfor %}
+          </div>
+          <p class="mock-note" aria-hidden="true">Ilustração com dados de exemplo</p>
+          {% elif item.slug == "robo-juridico" %}
+          <div class="robot">
+            <div class="robot__head"><span>Acompanhamento de processos</span><span class="mock__live">consultando</span></div>
+            <ul class="robot__list">
+              <li><em class="tag">e-SAJ</em><span class="robot__num">1000xxx-xx.2026.8.26.0100</span><b class="chip chip--ok">Nova intimação</b></li>
+              <li><em class="tag">eproc</em><span class="robot__num">5001xxx-xx.2026.8.26.0224</span><b class="chip">Movimentação</b></li>
+              <li><em class="tag">e-SAJ</em><span class="robot__num">1002xxx-xx.2026.8.26.0053</span><b class="chip">Sem novidade</b></li>
+            </ul>
+          </div>
+          <p class="mock-note" aria-hidden="true">Ilustração com dados de exemplo</p>
+          {% endif %}
         </div>
-        <h3 class="case__name">{{ item.name }}</h3>
-        <div class="case__metric">
-          <p class="case__value">{{ item.metric | fill | safe }}</p>
+
+        <div class="case__body">
+          {% if not (item.sector | pending) %}<p class="case__sector">{{ item.sector }}</p>{% endif %}
+          <h3 class="case__name">{{ item.name }}</h3>
+          {% if not (item.metric | pending) %}<p class="case__metric">{{ item.metric }}</p>{% endif %}
           <p class="case__desc">{{ item.metricLabel }}</p>
+          {% if not (item.origin | pending) %}<p class="case__origin">{{ item.origin }}</p>{% endif %}
+          <a class="case__link" href="{{ item.url }}">Ver case <span class="arrow" aria-hidden="true">→</span></a>
         </div>
-        <a class="card-link" href="{{ item.url }}">Ver case <span class="arrow" aria-hidden="true">→</span></a>
       </article>
       {% endfor %}
     </div>
   </div>
 </section>
 
-{# ── Para quem ──────────────────────────────────────────────────────── #}
-<section class="section section--dark" aria-labelledby="segmentos-title">
-  <div class="gridlines" aria-hidden="true"></div>
+{# ══ Para quem ══════════════════════════════════════════════════════ #}
+<section class="block block--light who" aria-labelledby="who-title">
   <div class="container">
-    <div class="section__head">
-      <p class="label">Para quem eu trabalho</p>
-      <h2 class="h2" id="segmentos-title">Negócios que vivem de atendimento.</h2>
-    </div>
-
-    <ul class="segments">
+    <header class="head">
+      <p class="kicker">Para quem eu trabalho</p>
+      <h2 class="title" id="who-title">Negócios que vivem de atendimento.</h2>
+    </header>
+    <ul class="who__list">
       {% for item in segments %}
-      <li class="segment reveal" style="--i:{{ loop.index0 }}">
-        {{ icon(item.icon) }}
-        <h3 class="h3">{{ item.name }}</h3>
-        <p>{{ item.text }}</p>
+      <li class="who__row">
+        <span class="who__icon">{{ icon(item.icon) }}</span>
+        <span class="who__name">{{ item.name }}</span>
+        <span class="who__need">{{ item.text }}</span>
       </li>
       {% endfor %}
     </ul>
-    <p class="segments-note">E outras pequenas empresas de Boa Vista.</p>
+    <p class="who__more">E outras pequenas empresas de Boa Vista.</p>
   </div>
 </section>
 
-{# ── Do blog ────────────────────────────────────────────────────────── #}
+{# ══ Do blog ════════════════════════════════════════════════════════ #}
 {% if recentPosts.length %}
-<section class="section" aria-labelledby="blog-title">
+<section class="block block--light blog-block" aria-labelledby="blog-title">
   <div class="container">
-    <div class="section__head section__head--split">
-      <div style="display:grid;gap:20px">
-        <p class="label">Do blog</p>
-        <h2 class="h2" id="blog-title">Como eu resolvo problemas reais.</h2>
+    <header class="head head--split">
+      <div>
+        <p class="kicker">Do blog</p>
+        <h2 class="title title--sm" id="blog-title">Como eu resolvo problemas reais.</h2>
       </div>
-      <p><a class="link" href="/blog/">Ver todos os posts <span class="arrow" aria-hidden="true">→</span></a></p>
-    </div>
-
+      <a class="link" href="/blog/">Ver todos os posts <span class="arrow" aria-hidden="true">→</span></a>
+    </header>
     <div class="posts">
       {% for post in recentPosts %}
-      <article class="post-card reveal" style="--i:{{ loop.index0 }}">
+      <a class="post" href="{{ post.url }}">
         <time datetime="{{ post.dateString }}">{{ post.dateLong }}</time>
-        <h3 class="h3">{{ post.title }}</h3>
-        {% if post.description %}<p>{{ post.description }}</p>{% endif %}
-        <a class="card-link" href="{{ post.url }}">Ler o post <span class="arrow" aria-hidden="true">→</span></a>
-      </article>
+        <span class="post__title">{{ post.title }}</span>
+        {% if post.description %}<span class="post__desc">{{ post.description }}</span>{% endif %}
+        <span class="post__go" aria-hidden="true">→</span>
+      </a>
       {% endfor %}
     </div>
   </div>
 </section>
 {% endif %}
 
-{# ── CTA final ──────────────────────────────────────────────────────── #}
-<section class="section section--dark cta" aria-labelledby="cta-title">
-  <div class="gridlines" aria-hidden="true"></div>
-  <div class="glow glow--cta" aria-hidden="true"></div>
-  <div class="container">
-    <h2 class="cta__title" id="cta-title">Bora <em>conversar?</em></h2>
-    <div class="cta__row" data-cta>
-      <a class="btn btn--primary btn--lg" href="{{ waLink }}" target="_blank" rel="noopener">
+{# ══ Quem faz ═══════════════════════════════════════════════════════ #}
+<section class="block block--light maker" aria-labelledby="maker-title">
+  <div class="container maker__grid">
+    {# FOTO: troque o bloco abaixo por
+       <img class="maker__photo" src="/img/valdeir.jpg" alt="Valdeir Sapará" width="480" height="600" loading="lazy">
+       (foto real, vertical 4:5) #}
+    <div class="maker__photo maker__photo--placeholder" role="img" aria-label="Foto de Valdeir Sapará">
+      <svg viewBox="0 0 120 150" aria-hidden="true"><circle cx="60" cy="56" r="26"/><path d="M14 150c4-34 22-52 46-52s42 18 46 52"/></svg>
+    </div>
+    <div class="maker__copy">
+      <p class="kicker">Quem faz</p>
+      <h2 class="title" id="maker-title">Valdeir Sapará, Tech Lead na Defensoria Pública de RR.</h2>
+      <p class="lede">Atendo pessoalmente em Boa Vista.</p>
+      <a class="link" href="/sobre/">Conhecer minha trajetória <span class="arrow" aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
+
+{# ══ CTA final ══════════════════════════════════════════════════════ #}
+<section class="final" aria-labelledby="cta-title">
+  <div class="final__glow" aria-hidden="true"></div>
+  <div class="container final__inner">
+    <h2 class="final__title" id="cta-title">Bora conversar?</h2>
+    <p class="final__text">Me conta o que está travando na sua empresa. Respondo no mesmo dia.</p>
+    <div class="final__actions" data-cta>
+      <a class="btn btn--accent btn--xl" href="{{ waLink }}" target="_blank" rel="noopener">
         {{ icon("whatsapp") }} Falar no WhatsApp <span class="arrow" aria-hidden="true">→</span>
       </a>
-      <p>Respondo no mesmo dia. {{ contact.city }}.</p>
     </div>
   </div>
 </section>

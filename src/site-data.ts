@@ -1,7 +1,9 @@
 /**
  * Conteúdo comercial da Sapará Dev.
- * Tudo que ainda falta está marcado com fill("...") nos templates
- * ou com o prefixo FILL: aqui — o build lista essas pendências no final.
+ *
+ * PENDÊNCIAS: campo vazio ("") ou com "[[...]]" NÃO aparece no site — o card,
+ * a linha ou o item some até você preencher. Procure por "PREENCHER" neste
+ * arquivo. O build lista no terminal tudo que ainda está oculto.
  */
 
 export const contact = {
@@ -11,8 +13,11 @@ export const contact = {
   whatsappMessage: "Oi, Valdeir! Vim pelo site da Sapará Dev e quero conversar.",
   email: "contato@valdeirsapara.com.br",
   city: "Boa Vista - RR",
-  cnpj: "FILL:CNPJ",
-  instagram: "FILL:Instagram (@usuario e link)",
+  // PREENCHER: CNPJ (ex.: "12.345.678/0001-90"). Oculto enquanto vazio.
+  cnpj: "",
+  // PREENCHER: @ do Instagram e link. Ocultos enquanto vazios.
+  instagram: "",
+  instagramUrl: "",
 };
 
 export function whatsappLink(message = contact.whatsappMessage): string {
@@ -41,7 +46,7 @@ export const packages = [
     audience: "Para quem recebe muita mensagem e perde cliente fora do horário.",
     setup: "R$ 2.500",
     monthly: "R$ 390/mês",
-    deadline: "15 dias",
+    deadline: "Prazo combinado na proposta",
     includes: [
       "Assistente no WhatsApp treinado com as informações do seu negócio",
       "Agendamento, lembrete e confirmação automáticos",
@@ -55,7 +60,7 @@ export const packages = [
     audience: "Para quem ainda depende só do Instagram para ser encontrado.",
     setup: "R$ 3.200",
     monthly: "R$ 120/mês",
-    deadline: "20 dias",
+    deadline: "Pronto em 20 dias",
     includes: [
       "Site de alto padrão com até 5 páginas",
       "Google Meu Negócio otimizado",
@@ -69,7 +74,7 @@ export const packages = [
     audience: "Para quem controla estoque, orçamento ou agenda em planilha e papel.",
     setup: "R$ 9.800",
     monthly: "R$ 490/mês",
-    deadline: "60 dias",
+    deadline: "Pronto em 60 dias",
     includes: [
       "Até 3 módulos: estoque, orçamentos, ordem de serviço ou agenda",
       "Integração com Asaas ou Conta Azul",
@@ -102,38 +107,49 @@ export const steps = [
   },
 ];
 
+/**
+ * Cases: cada card mostra setor, número (quando houver) e uma linha de contexto.
+ * Com `metric` vazio o card aparece sem o número.
+ */
 export const cases = [
   {
     slug: "logisticaapp",
     name: "LogisticaApp",
     sector: "Logística",
-    metric: "FILL:resultado principal",
-    metricLabel: "Sistema de gestão logística para empresa de Boa Vista.",
+    // PREENCHER: número do resultado (ex.: "3×", "-40%"). Sem número, o card aparece sem ele.
+    metric: "",
+    metricLabel: "Sistema de gestão logística para cliente de Boa Vista.",
+    origin: "",
     url: "/cases/logisticaapp/",
   },
   {
     slug: "atendimento-whatsapp",
-    name: "Atendimento no WhatsApp",
-    sector: "FILL:setor do cliente",
-    metric: "FILL:atendimentos por mês / tempo de resposta",
-    metricLabel: "Atendimento que responde, agenda e confirma sozinho.",
+    name: "Atendimento no WhatsApp com IA",
+    sector: "Atendimento",
+    // PREENCHER: número (atendimentos por mês ou tempo de resposta). Sem número, o card aparece sem ele.
+    metric: "",
+    metricLabel: "Robô que responde, agenda e confirma pelo WhatsApp.",
+    origin: "",
     url: "/cases/atendimento-whatsapp/",
   },
   {
     slug: "recapi",
     name: "RecAPI",
-    sector: "Monitoramento",
+    sector: "Monitoramento e segurança",
     metric: "250+",
     metricLabel: "câmeras monitoradas ao mesmo tempo, em produção.",
+    origin: "Projeto desenvolvido para a SensorEng",
     url: "/cases/recapi/",
   },
   {
-    slug: "tela-134x",
-    name: "Tela 134× mais rápida",
-    sector: "Setor público",
-    metric: "134×",
-    metricLabel: "de 37 s para 0,28 s, sem trocar de sistema.",
-    url: "/cases/tela-134x/",
+    slug: "robo-juridico",
+    name: "Robô jurídico",
+    sector: "Jurídico",
+    // PREENCHER: número (ex.: processos acompanhados por dia). Sem número, o card aparece sem ele.
+    metric: "",
+    metricLabel: "Robô que consulta e acompanha processos no e-SAJ e no eproc do TJSP automaticamente.",
+    origin: "",
+    url: "/cases/robo-juridico/",
   },
 ];
 
@@ -144,10 +160,20 @@ export const segments = [
   { name: "Contabilidades", text: "Coleta de documentos e cobrança de pendências.", icon: "accounting" },
 ];
 
-/** Faixa de números do topo. Só números reais — nada inventado. */
+/**
+ * Linha de números abaixo do hero. Só números reais.
+ * Item com "[[...]]" fica oculto até ser preenchido.
+ */
 export const stats = [
-  { value: "7", suffix: "+", label: "anos construindo sistemas que não podem parar" },
-  { value: "250", suffix: "+", label: "câmeras monitoradas ao mesmo tempo, em produção" },
-  { value: "134", suffix: "×", label: "mais rápida ficou uma tela crítica, sem trocar de sistema" },
-  { value: "15", suffix: " dias", label: "para o atendimento automático começar a funcionar" },
+  // PREENCHER: troque [[ANOS]] pelo número real (ex.: "8").
+  { value: "[[ANOS]]", suffix: "+", label: "anos construindo sistemas" },
+  { value: "250", suffix: "+", label: "câmeras monitoradas em produção" },
+];
+
+/**
+ * Posts que não aparecem na seção "Do blog" da home (continuam em /blog/).
+ * Use o slug, que é o nome do arquivo em content/ sem ".md".
+ */
+export const homeHiddenPosts = [
+  "de-37-segundos-para-028-como-deixei-uma-tela-134-mais-rapida-sem-trocar-de-framework",
 ];

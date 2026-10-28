@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>{{ pageTitle }}</title>
   <meta name="description" content="{{ pageDescription }}">
-  <meta name="theme-color" content="#0a0a0b">
+  <meta name="theme-color" content="#111111">
   <link rel="canonical" href="{{ canonicalUrl }}">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
@@ -19,7 +19,7 @@
   <link rel="alternate" type="application/rss+xml" title="Blog da Sapará Dev" href="/feed.xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
   <link rel="stylesheet" href="/site.css?v={{ assetVersion }}">
   <script>document.documentElement.classList.add("js");</script>
   <script src="/site.js?v={{ assetVersion }}" defer></script>
@@ -31,8 +31,8 @@
   <header class="header">
     <div class="container header__inner">
       <a class="logo" href="/" aria-label="Sapará Dev, página inicial">
-        <span class="logo__mark" aria-hidden="true"></span>
-        <span>Sapará</span><span class="logo__dev">Dev</span>
+        <svg class="logo__mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 22 12 12 22 2 12z" fill="currentColor"/><path d="M12 7.5 16.5 12 12 16.5 7.5 12z" fill="#111"/></svg>
+        <span>Sapará<span class="logo__dev"> Dev</span></span>
       </a>
 
       <nav class="nav" aria-label="Principal">
@@ -43,19 +43,20 @@
       </nav>
 
       <div class="header__actions">
-        <a class="btn btn--light header__cta" href="{{ waLink }}" target="_blank" rel="noopener">
-          {{ icon("whatsapp") }}
-          <span class="header__cta-long">Falar no WhatsApp</span><span class="header__cta-short">WhatsApp</span>
+        <a class="btn btn--light btn--sm" href="{{ waLink }}" target="_blank" rel="noopener" data-cta>
+          {{ icon("whatsapp") }}<span class="hide-xs">Falar no WhatsApp</span><span class="show-xs">WhatsApp</span>
         </a>
         <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu-mobile" aria-label="Abrir menu"><span></span></button>
       </div>
     </div>
-    <nav class="container mobile-nav" id="menu-mobile" aria-label="Menu" hidden>
-      <a href="/servicos/">Serviços <span class="arrow" aria-hidden="true">→</span></a>
-      <a href="/cases/">Cases <span class="arrow" aria-hidden="true">→</span></a>
-      <a href="/sobre/">Sobre <span class="arrow" aria-hidden="true">→</span></a>
-      <a href="/blog/">Blog <span class="arrow" aria-hidden="true">→</span></a>
-      <a href="/contato/">Contato <span class="arrow" aria-hidden="true">→</span></a>
+    <nav class="mobile-nav" id="menu-mobile" aria-label="Menu" hidden>
+      <div class="container">
+        <a href="/servicos/">Serviços <span aria-hidden="true">→</span></a>
+        <a href="/cases/">Cases <span aria-hidden="true">→</span></a>
+        <a href="/sobre/">Sobre <span aria-hidden="true">→</span></a>
+        <a href="/blog/">Blog <span aria-hidden="true">→</span></a>
+        <a href="/contato/">Contato <span aria-hidden="true">→</span></a>
+      </div>
     </nav>
   </header>
 
@@ -66,19 +67,19 @@
   <footer class="footer">
     <div class="container">
       <div class="footer__grid">
-        <div class="footer__col">
-          <a class="logo" href="/"><span class="logo__mark" aria-hidden="true"></span><span>Sapará</span><span class="logo__dev">Dev</span></a>
-          <p>Atendo em {{ contact.city }}.</p>
-          <p>CNPJ {{ contact.cnpj | fill | safe }}</p>
+        <div class="footer__col footer__about">
+          <p class="footer__pitch">Atendimento no WhatsApp, sites e sistemas para empresas de Boa Vista.</p>
         </div>
         <div class="footer__col">
-          <p class="label">Contato</p>
+          <p class="footer__title">Contato</p>
           <a href="{{ waLink }}" target="_blank" rel="noopener">WhatsApp {{ contact.whatsappDisplay }}</a>
           <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
-          <span>Instagram {{ contact.instagram | fill | safe }}</span>
+          {# Instagram: preencha contact.instagram e contact.instagramUrl em src/site-data.ts #}
+          {% if not (contact.instagram | pending) %}<a href="{{ contact.instagramUrl }}" target="_blank" rel="noopener">Instagram {{ contact.instagram }}</a>{% endif %}
+          <span>Atendo em {{ contact.city }}</span>
         </div>
         <div class="footer__col">
-          <p class="label">Páginas</p>
+          <p class="footer__title">Páginas</p>
           <a href="/servicos/">Serviços</a>
           <a href="/cases/">Cases</a>
           <a href="/sobre/">Sobre</a>
@@ -87,14 +88,18 @@
         </div>
       </div>
       <div class="footer__bottom">
-        <span>© {{ buildYear }} Sapará Dev · Valdeir Sapará</span>
+        {# CNPJ: [[PREENCHER]] — coloque o número em contact.cnpj (src/site-data.ts).
+           Enquanto estiver vazio, nada aparece aqui; depois de preenchido, a linha
+           "© Sapará Dev · CNPJ 00.000.000/0000-00" aparece sozinha. #}
+        <span>© {{ buildYear }} Sapará Dev{% if not (contact.cnpj | pending) %} · CNPJ {{ contact.cnpj }}{% endif %}</span>
         <a href="/feed.xml">RSS do blog</a>
       </div>
     </div>
+    <p class="wordmark" aria-hidden="true">Sapará Dev</p>
   </footer>
 
-  <a class="wa-float" href="{{ waLink }}" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
-    {{ icon("whatsapp") }} WhatsApp
+  <a class="wa-float is-hidden" href="{{ waLink }}" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    {{ icon("whatsapp") }}
   </a>
 </body>
 </html>
