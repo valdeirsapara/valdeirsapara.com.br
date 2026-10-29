@@ -5,32 +5,50 @@
 
 {% block content %}
 
-{# ══ Abertura ═══════════════════════════════════════════════════════ #}
-<section class="hero" aria-labelledby="hero-title">
+{# ══ Abertura (proposta: centrada, com mostrador de relógio) ═══════ #}
+<section class="hero hero--center" aria-labelledby="hero-title">
   <div class="hero__bg" aria-hidden="true">
     <div class="hero__grid-lines"></div>
+    <svg class="dial" viewBox="0 0 1200 620" aria-hidden="true">
+      <line class="dial__tick dial__tick--h" x1="40.0" y1="600.0" x2="62.0" y2="600.0"/><line class="dial__tick" x1="41.2" y1="563.4" x2="51.2" y2="564.0"/><line class="dial__tick dial__tick--h" x1="44.8" y1="526.9" x2="66.6" y2="529.8"/><line class="dial__tick" x1="50.8" y1="490.7" x2="60.6" y2="492.7"/><line class="dial__tick dial__tick--h" x1="59.1" y1="455.1" x2="80.3" y2="460.8"/><line class="dial__tick" x1="69.7" y1="420.0" x2="79.2" y2="423.2"/><line class="dial__tick dial__tick--h" x1="82.6" y1="385.7" x2="103.0" y2="394.1"/><line class="dial__tick" x1="97.8" y1="352.3" x2="106.7" y2="356.7"/><line class="dial__tick dial__tick--h" x1="115.0" y1="320.0" x2="134.1" y2="331.0"/><line class="dial__tick" x1="134.4" y1="288.9" x2="142.7" y2="294.4"/><line class="dial__tick dial__tick--h" x1="155.7" y1="259.1" x2="173.2" y2="272.5"/><line class="dial__tick" x1="179.0" y1="230.8" x2="186.5" y2="237.4"/><line class="dial__tick dial__tick--h" x1="204.0" y1="204.0" x2="219.6" y2="219.6"/><line class="dial__tick" x1="230.8" y1="179.0" x2="237.4" y2="186.5"/><line class="dial__tick dial__tick--h" x1="259.1" y1="155.7" x2="272.5" y2="173.2"/><line class="dial__tick" x1="288.9" y1="134.4" x2="294.4" y2="142.7"/><line class="dial__tick dial__tick--h" x1="320.0" y1="115.0" x2="331.0" y2="134.1"/><line class="dial__tick" x1="352.3" y1="97.8" x2="356.7" y2="106.7"/><line class="dial__tick dial__tick--h" x1="385.7" y1="82.6" x2="394.1" y2="103.0"/><line class="dial__tick" x1="420.0" y1="69.7" x2="423.2" y2="79.2"/><line class="dial__tick dial__tick--h" x1="455.1" y1="59.1" x2="460.8" y2="80.3"/><line class="dial__tick" x1="490.7" y1="50.8" x2="492.7" y2="60.6"/><line class="dial__tick dial__tick--h" x1="526.9" y1="44.8" x2="529.8" y2="66.6"/><line class="dial__tick" x1="563.4" y1="41.2" x2="564.0" y2="51.2"/><line class="dial__tick dial__tick--h" x1="600.0" y1="40.0" x2="600.0" y2="62.0"/><line class="dial__tick" x1="636.6" y1="41.2" x2="636.0" y2="51.2"/><line class="dial__tick dial__tick--h" x1="673.1" y1="44.8" x2="670.2" y2="66.6"/><line class="dial__tick" x1="709.3" y1="50.8" x2="707.3" y2="60.6"/><line class="dial__tick dial__tick--h" x1="744.9" y1="59.1" x2="739.2" y2="80.3"/><line class="dial__tick" x1="780.0" y1="69.7" x2="776.8" y2="79.2"/><line class="dial__tick dial__tick--h" x1="814.3" y1="82.6" x2="805.9" y2="103.0"/><line class="dial__tick" x1="847.7" y1="97.8" x2="843.3" y2="106.7"/><line class="dial__tick dial__tick--h" x1="880.0" y1="115.0" x2="869.0" y2="134.1"/><line class="dial__tick" x1="911.1" y1="134.4" x2="905.6" y2="142.7"/><line class="dial__tick dial__tick--h" x1="940.9" y1="155.7" x2="927.5" y2="173.2"/><line class="dial__tick" x1="969.2" y1="179.0" x2="962.6" y2="186.5"/><line class="dial__tick dial__tick--h" x1="996.0" y1="204.0" x2="980.4" y2="219.6"/><line class="dial__tick" x1="1021.0" y1="230.8" x2="1013.5" y2="237.4"/><line class="dial__tick dial__tick--h" x1="1044.3" y1="259.1" x2="1026.8" y2="272.5"/><line class="dial__tick" x1="1065.6" y1="288.9" x2="1057.3" y2="294.4"/><line class="dial__tick dial__tick--h" x1="1085.0" y1="320.0" x2="1065.9" y2="331.0"/><line class="dial__tick" x1="1102.2" y1="352.3" x2="1093.3" y2="356.7"/><line class="dial__tick dial__tick--h" x1="1117.4" y1="385.7" x2="1097.0" y2="394.1"/><line class="dial__tick" x1="1130.3" y1="420.0" x2="1120.8" y2="423.2"/><line class="dial__tick is-22" x1="1140.9" y1="455.1" x2="1119.7" y2="460.8"/><line class="dial__tick" x1="1149.2" y1="490.7" x2="1139.4" y2="492.7"/><line class="dial__tick dial__tick--h" x1="1155.2" y1="526.9" x2="1133.4" y2="529.8"/><line class="dial__tick" x1="1158.8" y1="563.4" x2="1148.8" y2="564.0"/><line class="dial__tick dial__tick--h" x1="1160.0" y1="600.0" x2="1138.0" y2="600.0"/>
+      <text class="dial__label" x="86.0" y="600.0">00h</text><text class="dial__label" x="236.5" y="236.5">06h</text><text class="dial__label" x="600.0" y="86.0">12h</text><text class="dial__label" x="963.5" y="236.5">18h</text>
+      <text class="dial__label is-22" x="1096.5" y="467.0">22h</text>
+    </svg>
   </div>
 
-  <div class="container hero__inner">
-    <div class="hero__copy">
-      <p class="place-pill"><span class="place-pill__dot" aria-hidden="true"></span>Boa Vista - RR</p>
-      <h1 class="hero__title split" id="hero-title">
-        {{ "Sua empresa perde cliente porque ninguém responde o WhatsApp às 22h." | words | safe }}
-      </h1>
-      <p class="hero__answer">
-        Eu faço o atendimento da sua empresa no WhatsApp funcionar sozinho, de dia e de noite,
-        e organizo o que hoje está em planilha e papel.
-      </p>
-      <div class="hero__cta" data-cta>
-        <a class="btn btn--accent btn--lg" href="{{ waLink }}" target="_blank" rel="noopener">
-          {{ icon("whatsapp") }} Falar no WhatsApp <span class="arrow" aria-hidden="true">→</span>
+  <div class="container hero__stack">
+    <p class="place-pill"><span class="place-pill__dot" aria-hidden="true"></span>Boa Vista - RR</p>
+    <h1 class="hero__title split" id="hero-title">
+      {{ "Sua empresa perde cliente porque ninguém responde o WhatsApp às 22h." | words | safe }}
+    </h1>
+    <p class="hero__answer">
+      Eu faço o atendimento da sua empresa no WhatsApp funcionar sozinho, de dia e de noite,
+      e organizo o que hoje está em planilha e papel.
+    </p>
+
+    <form class="pick" data-pick data-wa="{{ contact.whatsapp }}" data-cta>
+      <fieldset class="pick__group">
+        <legend class="pick__legend">Qual é o seu negócio?</legend>
+        {% for item in segments %}
+        <label class="pick__chip">
+          <input type="radio" name="segmento" id="seg-{{ loop.index }}" value="{{ item.name }}" data-msg="{{ item.pitch }}"{% if loop.first %} checked{% endif %}>
+          <span>{{ icon(item.icon) }}{{ item.name }}</span>
+        </label>
+        {% endfor %}
+      </fieldset>
+      <div class="pick__actions">
+        <a class="btn btn--accent btn--lg" href="{{ waLink }}" target="_blank" rel="noopener" data-pick-link>
+          {{ icon("whatsapp") }} Quero meu WhatsApp respondendo sozinho <span class="arrow" aria-hidden="true">→</span>
         </a>
         <a class="btn btn--ghost btn--lg" href="#pacotes">Ver pacotes e preços</a>
       </div>
-    </div>
+      <p class="pick__hint">A conversa abre no WhatsApp com o seu tipo de negócio já escrito. Respondo no mesmo dia.</p>
+    </form>
+  </div>
 
-    <div class="stage" data-stage aria-label="Exemplo: um cliente pergunta às 21h58 e o atendimento automático responde e agenda a consulta" role="img">
-      <div class="stage__layer" data-depth="0.5">
+  <div class="container hero__showcase">
+    <div class="stage stage--center" data-stage aria-label="Exemplo: um cliente pergunta às 21h58 e o atendimento automático responde e agenda a consulta" role="img">
+      <div class="stage__layer" data-depth="0.4">
         <div class="phone">
           <div class="phone__screen">
             <div class="phone__status" aria-hidden="true">
@@ -56,9 +74,8 @@
             <div class="phone__input" aria-hidden="true"><span>Mensagem</span><i></i></div>
           </div>
         </div>
+      
       </div>
-
-      <p class="mock-note mock-note--stage" aria-hidden="true">Ilustração com dados de exemplo</p>
 
       <div class="float float--notify" data-depth="1.4" aria-hidden="true">
         <span class="float__avatar">M</span>
@@ -70,9 +87,7 @@
 
       <div class="float float--slots" data-depth="1.1" aria-hidden="true">
         <p class="float__title">Amanhã</p>
-        <div class="slots">
-          <span>08:00</span><span class="is-picked">10:30</span><span>15:00</span>
-        </div>
+        <div class="slots"><span>08:00</span><span class="is-picked">10:30</span><span>15:00</span></div>
         <p class="float__ok"><span></span>Consulta confirmada</p>
       </div>
 
@@ -83,19 +98,25 @@
           <p class="float__text">Ligado, inclusive à noite</p>
         </div>
       </div>
+
+      <div class="float float--count" data-depth="1.25" aria-hidden="true">
+        <p class="float__text">Respondidas fora do horário</p>
+        <p class="float__big">21 <small>esta semana</small></p>
+      </div>
+
     </div>
+    <p class="mock-note mock-note--stage mock-note--showcase" aria-hidden="true">Ilustração com dados de exemplo</p>
   </div>
 
   <div class="container">
-    {# Itens com "[[...]]" (ex.: [[ANOS]]) ficam ocultos até serem preenchidos em src/site-data.ts #}
-    <dl class="statline">
+    <div class="trust trust--facts">
+      <p>Atendo presencialmente em Boa Vista</p>
+      <p>Respondo no mesmo dia</p>
+      <p>Preço fechado antes de começar</p>
       {% for item in stats %}{% if not (item.value | pending) %}
-      <div class="statline__item">
-        <dd><span data-count="{{ item.value }}">{{ item.value }}</span>{{ item.suffix }}</dd>
-        <dt>{{ item.label }}</dt>
-      </div>
+      <p><b><span data-count="{{ item.value }}">{{ item.value }}</span>{{ item.suffix }}</b> {{ item.label }}</p>
       {% endif %}{% endfor %}
-    </dl>
+    </div>
   </div>
 </section>
 
@@ -119,6 +140,54 @@
   </div>
 </section>
 
+{# ══ Na prática (showcase) ══════════════════════════════════════════ #}
+<section class="block showcase" aria-labelledby="showcase-title">
+  <div class="showcase__glow" aria-hidden="true"></div>
+  <div class="container">
+    <header class="showcase__head">
+      <p class="kicker">Na prática</p>
+      <h2 class="title" id="showcase-title">Tudo que chega no WhatsApp, num painel só.</h2>
+      <p class="lede">Você vê quem falou, o que foi respondido e o que já está na agenda. Quando precisa de alguém da equipe, a conversa chega para você.</p>
+    </header>
+
+    <div class="browser" aria-hidden="true">
+      <div class="browser__chrome"><i></i><i></i><i></i><span>painel.suaempresa.com.br</span></div>
+      <div class="dash">
+        <aside class="dash__list">
+          <p class="dash__h">Conversas <em>hoje · 38</em></p>
+          <ul>
+            <li class="is-on"><span class="av">M</span><div><b>Marina</b><p>10h30, por favor</p></div><time>21:59</time></li>
+            <li><span class="av">J</span><div><b>João Pedro</b><p>Vocês aceitam convênio?</p></div><time>21:40</time></li>
+            <li><span class="av">A</span><div><b>Ana Clara</b><p>Confirmado, obrigada!</p></div><time>20:12</time></li>
+            <li><span class="av">R</span><div><b>Roberto</b><p>Qual o endereço?</p></div><time>19:55</time></li>
+            <li><span class="av">L</span><div><b>Luiza</b><p>Tem horário sábado?</p></div><time>18:31</time></li>
+          </ul>
+        </aside>
+        <div class="dash__chat">
+          <p class="dash__h">Marina <em>respondida pelo atendimento automático</em></p>
+          <div class="dash__msgs">
+            <p class="b b--in">Boa noite! Vocês atendem amanhã? Queria marcar uma consulta.</p>
+            <p class="b b--out">Boa noite! Atendemos sim. Amanhã tenho 8h, 10h30 e 15h. Qual fica melhor?</p>
+            <p class="b b--in">10h30, por favor</p>
+            <p class="b b--out">Pronto! Consulta marcada para amanhã às 10h30. Mando um lembrete 1h antes.</p>
+          </div>
+        </div>
+        <aside class="dash__agenda">
+          <p class="dash__h">Agenda <em>amanhã</em></p>
+          <ul>
+            <li><time>08:00</time><span>Roberto Lima</span></li>
+            <li class="is-new"><time>10:30</time><span>Marina Souza</span><em>novo</em></li>
+            <li><time>14:00</time><span>Ana Clara</span></li>
+            <li><time>15:00</time><span class="free">livre</span></li>
+          </ul>
+          <div class="dash__kpi"><p>Respondidas fora do horário</p><b>21</b></div>
+        </aside>
+      </div>
+      <p class="mock-note">Ilustração com dados de exemplo</p>
+    </div>
+  </div>
+</section>
+
 {# ══ Pacotes ════════════════════════════════════════════════════════ #}
 <section class="block block--light" id="pacotes" aria-labelledby="pacotes-title">
   <div class="container">
@@ -130,7 +199,8 @@
 
     <div class="plans">
       {% for plan in packages %}
-      <article class="plan">
+      <article class="plan{% if loop.first %} plan--featured{% endif %}">
+        {% if loop.first %}<p class="plan__badge">Comece por aqui</p>{% endif %}
         <div class="plan__visual" aria-hidden="true">
           {% if plan.slug == "atendimento-whatsapp" %}
           <div class="mock mock--inbox">
@@ -182,7 +252,7 @@
             <li>{{ item }}</li>
             {% endfor %}
           </ul>
-          <a class="btn btn--dark plan__btn" href="{{ waLinkFor('Oi, Valdeir! Quero saber mais sobre o pacote ' + plan.name + '.') }}" target="_blank" rel="noopener">Quero esse pacote <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="btn {% if loop.first %}btn--accent{% else %}btn--dark{% endif %} plan__btn" href="{{ waLinkFor('Oi, Valdeir! Quero saber mais sobre o pacote ' + plan.name + '.') }}" target="_blank" rel="noopener">Quero esse pacote <span class="arrow" aria-hidden="true">→</span></a>
         </div>
       </article>
       {% endfor %}
@@ -327,23 +397,46 @@
 </section>
 {% endif %}
 
-{# ══ Quem faz ═══════════════════════════════════════════════════════ #}
-<section class="block block--light maker" aria-labelledby="maker-title">
-  <div class="container maker__grid">
-    {# FOTO: coloque o arquivo em static/img/ e preencha maker.photo em src/site-data.ts.
-       Vazio = espaço reservado abaixo. Formato: vertical 4:5. #}
-    {% if not (maker.photo | pending) %}
-    <img class="maker__photo" src="{{ maker.photo }}" alt="{{ maker.photoAlt }}" width="480" height="600" loading="lazy" decoding="async">
-    {% else %}
-    <div class="maker__photo maker__photo--placeholder" role="img" aria-label="Foto de Valdeir Sapará">
-      <svg viewBox="0 0 120 150" aria-hidden="true"><circle cx="60" cy="56" r="26"/><path d="M14 150c4-34 22-52 46-52s42 18 46 52"/></svg>
-    </div>
-    {% endif %}
-    <div class="maker__copy">
+{# ══ Quem faz (proposta: foto + compromisso pessoal) ═══════════════ #}
+<section class="block block--light person" aria-labelledby="maker-title">
+  <div class="container person__grid">
+    <figure class="person__photo">
+      {# FOTO: maker.photo em src/site-data.ts (vertical 4:5) #}
+      {% if not (maker.photo | pending) %}
+      <img src="{{ maker.photo }}" alt="{{ maker.photoAlt }}" width="480" height="600" loading="lazy" decoding="async">
+      {% else %}
+      <div class="maker__photo--placeholder" role="img" aria-label="Foto de Valdeir Sapará"></div>
+      {% endif %}
+      <figcaption class="person__tag">
+        <span class="person__mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2 22 12 12 22 2 12z" fill="currentColor"/><path d="M12 7.5 16.5 12 12 16.5 7.5 12z" fill="#111"/></svg></span>
+        <span><b>Valdeir Sapará</b><small>Sapará Dev · Boa Vista - RR</small></span>
+      </figcaption>
+    </figure>
+
+    <div class="person__copy">
       <p class="kicker">Quem faz</p>
       <h2 class="title" id="maker-title">Valdeir Sapará, quem desenvolve o seu projeto.</h2>
-      <p class="lede">Atendo pessoalmente em Boa Vista.</p>
-      <a class="link" href="/sobre/">Conhecer minha trajetória <span class="arrow" aria-hidden="true">→</span></a>
+      <p class="person__lede">Aqui não tem gerente de conta nem call center. Quem conversa com você, entende o problema, desenvolve e cuida do sistema depois sou eu. Atendo pessoalmente em Boa Vista.</p>
+
+      <ul class="promises">
+        <li>
+          <span class="promises__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+          <div><b>Vou até a sua empresa</b><p>O diagnóstico é feito no seu balcão, vendo como o atendimento acontece hoje.</p></div>
+        </li>
+        <li>
+          <span class="promises__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 19.5l1.1-3.6A8 8 0 1 1 8.4 18.6z"/></svg></span>
+          <div><b>Você fala direto comigo</b><p>Do primeiro orçamento ao suporte, no mesmo WhatsApp. Respondo no mesmo dia.</p></div>
+        </li>
+        <li>
+          <span class="promises__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.4 7.5 9.5 4.3-1.1 7.5-4.9 7.5-9.5V6z"/><path d="m9 12 2 2 4-4"/></svg></span>
+          <div><b>Continuo cuidando depois da entrega</b><p>Treino sua equipe e faço a manutenção todo mês, com suporte e backup.</p></div>
+        </li>
+      </ul>
+
+      <div class="person__actions">
+        <a class="btn btn--dark btn--lg" href="{{ waLinkFor('Oi, Valdeir! Vim pelo site e queria conversar sobre um projeto.') }}" target="_blank" rel="noopener">{{ icon("whatsapp") }} Falar comigo no WhatsApp <span class="arrow" aria-hidden="true">→</span></a>
+        <a class="link" href="/sobre/">Conhecer minha trajetória <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
     </div>
   </div>
 </section>

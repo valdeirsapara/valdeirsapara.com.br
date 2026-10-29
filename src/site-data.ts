@@ -154,10 +154,10 @@ export const cases = [
 ];
 
 export const segments = [
-  { name: "Clínicas e consultórios", text: "Agenda, confirmação de consulta e lembrete.", icon: "clinic" },
-  { name: "Laboratórios", text: "Estoque, validade e controle de temperatura.", icon: "lab" },
-  { name: "Veterinárias", text: "Agendamento, retorno e vacina no prazo.", icon: "vet" },
-  { name: "Contabilidades", text: "Coleta de documentos e cobrança de pendências.", icon: "accounting" },
+  { name: "Clínicas e consultórios", pitch: "Tenho uma clínica/consultório", text: "Agenda, confirmação de consulta e lembrete.", icon: "clinic" },
+  { name: "Laboratórios", pitch: "Tenho um laboratório", text: "Estoque, validade e controle de temperatura.", icon: "lab" },
+  { name: "Veterinárias", pitch: "Tenho uma veterinária", text: "Agendamento, retorno e vacina no prazo.", icon: "vet" },
+  { name: "Contabilidades", pitch: "Tenho uma contabilidade", text: "Coleta de documentos e cobrança de pendências.", icon: "accounting" },
 ];
 
 /**

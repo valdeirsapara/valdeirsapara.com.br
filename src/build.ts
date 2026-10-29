@@ -492,6 +492,7 @@ await Promise.all([
   Bun.write(path.join("dist", "blog", "index.html"), blogHtml),
   Bun.write(path.join("dist", "site.css"), Bun.file(path.join("static", "site.css"))),
   Bun.write(path.join("dist", "site.js"), Bun.file(path.join("static", "site.js"))),
+  Bun.write(path.join("dist", "motion.js"), Bun.file(path.join("static", "motion.js"))),
   Bun.write(path.join("dist", "sobre", "index.html"), sobreHtml),
   Bun.write(path.join("dist", "styles.css"), Bun.file(path.join("static", "styles.css"))),
   Bun.write(path.join("dist", "favicon.svg"), Bun.file(path.join("static", "favicon.svg"))),

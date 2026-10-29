@@ -26,6 +26,21 @@
     });
   }
 
+  /* Hero: o segmento escolhido vai na mensagem do WhatsApp */
+  document.querySelectorAll("[data-pick]").forEach(function (form) {
+    var link = form.querySelector("[data-pick-link]");
+    var number = form.getAttribute("data-wa");
+    var update = function () {
+      var picked = form.querySelector('input[name="segmento"]:checked');
+      var who = picked ? picked.getAttribute("data-msg") : "Tenho uma empresa";
+      var msg = "Oi, Valdeir! Vim pelo site. " + who + " e quero o atendimento no WhatsApp funcionando sozinho.";
+      link.href = "https://wa.me/" + number + "?text=" + encodeURIComponent(msg);
+    };
+    form.addEventListener("change", update);
+    form.addEventListener("submit", function (event) { event.preventDefault(); });
+    update();
+  });
+
   /* Palco do hero: camadas reagem ao mouse em profundidades diferentes */
   var stage = document.querySelector("[data-stage]");
   if (stage) {
@@ -131,6 +146,7 @@
 
   var onScroll = function () {
     ticking = false;
+    if (window.__gsapScroll) return; // com GSAP ativo, a rolagem é do ScrollTrigger
     var vh = window.innerHeight;
 
     if (words.length && !reduce) {

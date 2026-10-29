@@ -23,8 +23,25 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
   <link rel="stylesheet" href="/site.css?v={{ assetVersion }}">
-  <script>document.documentElement.classList.add("js");</script>
+  <script>
+    (function (d) {
+      d.classList.add("js");
+      // Movimento orquestrado pelo GSAP: só quando a pessoa não pediu menos movimento.
+      // Se o GSAP não carregar em 2,5 s, a página volta para as animações em CSS.
+      if (window.matchMedia("(prefers-reduced-motion: no-preference)").matches) {
+        d.classList.add("motion");
+        setTimeout(function () { if (!window.gsap) d.classList.remove("motion"); }, 4000);
+      }
+    })(document.documentElement);
+  </script>
+  {# GSAP 3.13: todos os plugins são gratuitos (ScrollSmoother, SplitText, DrawSVG) #}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollSmoother.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/DrawSVGPlugin.min.js" defer></script>
   <script src="/site.js?v={{ assetVersion }}" defer></script>
+  <script src="/motion.js?v={{ assetVersion }}" defer></script>
   <script type="application/ld+json">{{ schemaJson | safe }}</script>
 </head>
 <body class="site {{ bodyClass }}">
@@ -62,6 +79,10 @@
     </nav>
   </header>
 
+  {# ScrollSmoother: tudo que rola fica dentro destes dois wrappers;
+     o topo fixo e o botão flutuante ficam de fora. #}
+  <div id="smooth-wrapper">
+  <div id="smooth-content">
   <main id="conteudo">
     {% block content %}{% endblock %}
   </main>
@@ -99,6 +120,8 @@
     </div>
     <p class="wordmark" aria-hidden="true">Sapará Dev</p>
   </footer>
+  </div>
+  </div>
 
   <a class="wa-float is-hidden" href="{{ waLink }}" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
     {{ icon("whatsapp") }}
