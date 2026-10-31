@@ -95,7 +95,6 @@
         </div>
         <div class="footer__col">
           <p class="footer__title">Contato</p>
-          <a href="{{ waLink }}" target="_blank" rel="noopener">WhatsApp {{ contact.whatsappDisplay }}</a>
           <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
           {# Instagram: preencha contact.instagram e contact.instagramUrl em src/site-data.ts #}
           {% if not (contact.instagram | pending) %}<a href="{{ contact.instagramUrl }}" target="_blank" rel="noopener">Instagram {{ contact.instagram }}</a>{% endif %}

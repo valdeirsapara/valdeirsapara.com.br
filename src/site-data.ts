@@ -7,9 +7,10 @@
  */
 
 export const contact = {
-  // Número no formato internacional, só dígitos (usado no link wa.me)
-  whatsapp: "5595991452704",
-  whatsappDisplay: "(95) 99145-2704",
+  // Número do WhatsApp da empresa: único lugar onde ele fica. Formato
+  // internacional, só dígitos (ex.: "5595900000000"). Vazio = os botões
+  // continuam no site, mas o link wa.me sai sem número.
+  whatsapp: "",
   whatsappMessage: "Oi, Valdeir! Vim pelo site da Sapará Dev e quero conversar.",
   email: "contato@valdeirsapara.com.br",
   city: "Boa Vista - RR",

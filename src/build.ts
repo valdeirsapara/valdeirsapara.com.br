@@ -429,7 +429,6 @@ const schemaJson = JSON.stringify({
   name: "Sapará Dev",
   url: `${SITE_URL}/`,
   email: contact.email,
-  telephone: `+${contact.whatsapp}`,
   founder: { "@type": "Person", name: "Valdeir Sapará" },
   address: {
     "@type": "PostalAddress",
